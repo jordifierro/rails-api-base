@@ -1,24 +1,16 @@
-## README
+## Rails Api Base
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This projects aims to build a useful template to use on other projects creation.
 
-Things you may want to cover:
+Things I will try to cover:
 
-* Ruby version
+* Build REST api to retrieve notes
 
-* System dependencies
+* User Token authentication
 
-* Configuration
+* Testing
 
-* Database creation
 
-* Database initialization
+Using: Ruby v2.3.0 and Rails 5.0.0
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+![Here I go!](http://i.giphy.com/8E1uPDT9gfhJK.gif)
