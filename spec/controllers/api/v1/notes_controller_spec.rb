@@ -10,7 +10,7 @@ describe Api::V1::NotesController, type: :controller do
     expect(delete: "/notes/4").to route_to("api/v1/notes#destroy", id: "4", format: :json)
   end
 
-  describe 'GET /notes/:id' do
+  describe 'GET /notes/:id #show' do
     context 'when a note with that :id exists' do
       before(:each) do
         @note = FactoryGirl.create(:note)
@@ -32,5 +32,15 @@ describe Api::V1::NotesController, type: :controller do
         expect(response.status).to eq 404
       end
     end
+  end
+
+  describe 'GET /notes #index' do
+    it 'returns 3 notes' do
+      FactoryGirl.create_list(:note, 3)
+      get :index
+      expect(json_response.count).to eq 3
+    end
+
+    it { expect(response.status).to eq 200 }
   end
 end
