@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Api::V1::NotesController, type: :controller do
-
   it "routes correctly" do
     expect(get: "/notes").to route_to("api/v1/notes#index", format: :json)
     expect(post: "/notes").to route_to("api/v1/notes#create", format: :json)
@@ -12,26 +11,26 @@ describe Api::V1::NotesController, type: :controller do
   end
 
   describe 'GET /notes/:id' do
+    context 'when a note with that :id exists' do
+      before(:each) do
+        @note = FactoryGirl.create(:note)
+        get :show, params: { id: @note.id }
+      end
 
-    it 'returns a note by :id' do
-      note = FactoryGirl.create(:note)
-      get :show, params: { id: note.id }
-      expect(json_response["id"]).to eq note.id
-      expect(json_response["title"]).to eq note.title
-      expect(json_response["content"]).to eq note.content
+      it 'returns the corresponding note' do
+        expect(json_response["id"]).to eq @note.id
+        expect(json_response["title"]).to eq @note.title
+        expect(json_response["content"]).to eq @note.content
+      end
+
+      it { expect(response.status).to eq 200 }
     end
 
-    it 'returns 200 when note with :id exists' do
-      note = FactoryGirl.create(:note)
-      get :show, params: { id: note.id }
-      expect(response.status).to eq 200
+    context 'when no note with that :id exists' do
+      it 'returns 404' do
+        get :show, params: { id: 1 }
+        expect(response.status).to eq 404
+      end
     end
-
-    it 'returns 404 when note with :id doesnt exists' do
-      get :show, params: { id: 1 }
-      expect(response.status).to eq 404
-    end
-
   end
-
 end
