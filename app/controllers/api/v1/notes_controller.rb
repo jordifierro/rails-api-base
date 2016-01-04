@@ -1,21 +1,21 @@
 class Api::V1::NotesController < ApplicationController
 
   def index
-    render Note.all
+    render json: Note.all
   end
 
   def show
-    render Note.find(params[:id])
+    render json: Note.find(params[:id])
   end
 
   def create
     note = Note.create(note_params)
-    render note
+    render json: note
   end
 
   def update
     note = Note.update(params[:id], note_params)
-    render note
+    render json: note
   end
 
   def destroy
