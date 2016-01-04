@@ -27,6 +27,11 @@ describe Api::V1::NotesController, type: :controller do
       expect(response.status).to eq 200
     end
 
+    it 'returns 404 when note with :id doesnt exists' do
+      get :show, params: { id: 1 }
+      expect(response.status).to eq 404
+    end
+
   end
 
 end
