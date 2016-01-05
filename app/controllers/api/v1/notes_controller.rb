@@ -18,8 +18,12 @@ class Api::V1::NotesController < ApplicationController
   end
 
   def update
-    note = Note.update(params[:id], note_params)
-    render json: note
+    note = Note.find(params[:id])
+    if note.update(note_params)
+      render json: note
+    else
+      render json: { errors: note.errors }, status: 422
+    end
   end
 
   def destroy

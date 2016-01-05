@@ -35,6 +35,10 @@ describe Api::V1::NotesController, type: :controller do
         expect(json_response['errors']).to_not be_nil
       end
 
+      it "renders the json errors on why the user could not be found" do
+        expect(json_response['errors']['not_found']).to_not be_nil
+      end
+
       it { expect(response.status).to eq 404 }
     end
   end
@@ -52,13 +56,13 @@ describe Api::V1::NotesController, type: :controller do
   describe "POST /notes #create" do
     context "when is successfully created" do
       before(:each) do
-        @note_attributes = FactoryGirl.attributes_for :note
-        process :create, method: :post, params: { note: @note_attributes }
+        @note_attr = FactoryGirl.attributes_for :note
+        process :create, method: :post, params: { note: @note_attr }
       end
 
       it "renders the json representation for the note record just created" do
-        expect(json_response['title']).to eq @note_attributes[:title]
-        expect(json_response['content']).to eq @note_attributes[:content]
+        expect(json_response['title']).to eq @note_attr[:title]
+        expect(json_response['content']).to eq @note_attr[:content]
       end
 
       it { expect(response.status).to eq 201 }
@@ -66,12 +70,11 @@ describe Api::V1::NotesController, type: :controller do
 
     context "when is not created" do
       before(:each) do
-        @invalid_note_attributes = { title_required: "to_create_note" }
-        process :create, method: :post, params: { note: @invalid_note_attributes }
+        @invalid_attr = { title_required: "to_create_note" }
+        process :create, method: :post, params: { note: @invalid_attr }
       end
 
       it "renders an errors json" do
-        puts json_response
         expect(json_response['errors']).to_not be_nil
       end
 
@@ -80,6 +83,63 @@ describe Api::V1::NotesController, type: :controller do
       end
 
       it { expect(response.status).to eq 422 }
+    end
+  end
+
+  describe "PUT /notes/:id #update" do
+    context "when is successfully updated" do
+      before(:each) do
+        original_note = FactoryGirl.create(:note)
+        @update_attr = FactoryGirl.attributes_for :note
+        process :update, method: :put, params: { id: original_note.id, note: @update_attr }
+      end
+
+      it "renders the json representation for the note record just updated" do
+        expect(json_response['title']).to eq @update_attr[:title]
+        expect(json_response['content']).to eq @update_attr[:content]
+      end
+
+      it { expect(response.status).to eq 200 }
+    end
+
+    context "when attributes are wrong" do
+      before(:each) do
+        @original_note = FactoryGirl.create(:note)
+        @invalid_attr = { title: "" }
+        process :update, method: :put, params: { id: @original_note.id, note: @invalid_attr }
+      end
+
+      it "doesn't modify the note" do
+        actual_note = Note.find(@original_note.id)
+        expect(actual_note.title).to eq @original_note.title
+        expect(actual_note.title).to_not eq @invalid_attr[:title]
+      end
+
+      it "renders an errors json" do
+        expect(json_response['errors']).to_not be_nil
+      end
+
+      it "renders the json errors on why the user could not be updated" do
+        expect(json_response['errors']['title']).to_not be_nil
+      end
+
+      it { expect(response.status).to eq 422 }
+    end
+
+    context "when note with :id not found" do
+      before(:each) do
+        process :update, method: :put, params: { id: 1 }
+      end
+
+      it "renders an errors json" do
+        expect(json_response['errors']).to_not be_nil
+      end
+
+      it "renders the json errors on why the user could not be updated" do
+        expect(json_response['errors']['not_found']).to_not be_nil
+      end
+
+      it { expect(response.status).to eq 404 }
     end
   end
 end
