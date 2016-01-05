@@ -142,4 +142,35 @@ describe Api::V1::NotesController, type: :controller do
       it { expect(response.status).to eq 404 }
     end
   end
+
+  describe "DELETE /notes/:id #destroy" do
+    context "when note with :id exists" do
+      before(:each) do
+        @note = FactoryGirl.create(:note)
+        process :destroy, method: :delete, params: { id: @note.id }
+      end
+
+      it "cannot be found anymore" do
+        expect{ Note.find(@note.id) }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it { expect(response.status).to eq 204 }
+    end
+
+    context "when note with :id doesn't exists" do
+      before(:each) do
+        process :destroy, method: :delete, params: { id: 1 }
+      end
+
+      it "renders an errors json" do
+        expect(json_response['errors']).to_not be_nil
+      end
+
+      it "renders the json errors on why the user could not be updated" do
+        expect(json_response['errors']['not_found']).to_not be_nil
+      end
+
+      it { expect(response.status).to eq 404 }
+    end
+  end
 end
