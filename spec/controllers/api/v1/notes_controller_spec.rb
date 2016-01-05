@@ -27,10 +27,15 @@ describe Api::V1::NotesController, type: :controller do
     end
 
     context "when no note with that :id exists" do
-      it "returns 404" do
+      before(:each) do
         get :show, params: { id: 1 }
-        expect(response.status).to eq 404
       end
+
+      it "renders an errors json" do
+        expect(json_response['errors']).to_not be_nil
+      end
+
+      it { expect(response.status).to eq 404 }
     end
   end
 
@@ -66,6 +71,7 @@ describe Api::V1::NotesController, type: :controller do
       end
 
       it "renders an errors json" do
+        puts json_response
         expect(json_response['errors']).to_not be_nil
       end
 
