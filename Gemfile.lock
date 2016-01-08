@@ -105,6 +105,7 @@ GEM
     minitest (5.8.3)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
+    pg (0.18.4)
     puma (2.15.3)
     rack (2.0.0.alpha)
       json
@@ -161,7 +162,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.3.11)
     thor (0.19.1)
     thread_safe (0.3.5)
     timers (4.1.1)
@@ -179,11 +179,11 @@ DEPENDENCIES
   byebug
   factory_girl_rails
   ffaker
+  pg
   puma
   rails (>= 5.0.0.beta1, < 5.1)
   rspec-rails (~> 2.14)
   spring
-  sqlite3
   tzinfo-data
 
 BUNDLED WITH
