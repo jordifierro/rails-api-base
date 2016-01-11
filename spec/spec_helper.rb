@@ -60,6 +60,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include Requests::JsonHelpers, type: :controller
+  config.include FactoryGirl::Syntax::Methods
 
   # Avoid should syntax, use expect instead
   config.expect_with :rspec do |c|

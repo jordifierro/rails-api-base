@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Api::V1::NotesController, type: :controller do
-  let(:note) { FactoryGirl.create :note }
+  let(:note) { create :note }
 
   it "routes correctly" do
     expect(get: "/notes").to route_to("api/v1/notes#index", format: :json)
@@ -46,7 +46,7 @@ describe Api::V1::NotesController, type: :controller do
 
   describe "GET /notes #index" do
     it "returns some notes" do
-      FactoryGirl.create_list(:note, 3)
+      create_list(:note, 3)
       get :index
       expect(json_response.count).to eq 3
     end
@@ -57,7 +57,7 @@ describe Api::V1::NotesController, type: :controller do
   describe "POST /notes #create" do
     context "when is created" do
       before(:each) do
-        @note_attr = FactoryGirl.attributes_for :note
+        @note_attr = attributes_for :note
         process :create, method: :post, params: { note: @note_attr }
       end
 
@@ -90,7 +90,7 @@ describe Api::V1::NotesController, type: :controller do
   describe "PUT /notes/:id #update" do
     context "when is updated" do
       before(:each) do
-        @update_attr = FactoryGirl.attributes_for :note
+        @update_attr = attributes_for :note
         process :update, method: :put, params: { id: note.id, note: @update_attr }
       end
 
