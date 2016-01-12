@@ -1,8 +1,15 @@
 require 'spec_helper'
 
 describe Note do
+  let(:note) { build :note }
+
+  describe "responds to attrs" do
+    it { expect(note).to respond_to(:title) }
+    it { expect(note).to respond_to(:content) }
+  end
+
   it "has a valid factory" do
-    expect(build(:note)).to be_valid
+    expect(note).to be_valid
   end
 
   it "is invalid without a title" do
@@ -16,7 +23,6 @@ describe Note do
   end
 
   it "creates a valid note" do
-    note = build(:note)
     expect(note.save).to be true
   end
 end
