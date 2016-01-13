@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Api::V1::NotesController, type: :controller do
+  before(:each) { request.headers['Accept'] = "application/vnd.railsapibase.v1" }
   let(:note) { create :note }
 
   it "routes correctly" do
