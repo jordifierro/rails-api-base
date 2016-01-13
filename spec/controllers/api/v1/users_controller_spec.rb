@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Api::V1::UsersController do
-  let(:user) { build :user }
+  let(:user) { create :user }
   let(:user_attr) { attributes_for :user }
   before(:each) { request.headers['Accept'] = "application/vnd.railsapibase.v1" }
 
