@@ -15,9 +15,7 @@ describe Api::V1::NotesController, type: :controller do
 
   describe "GET /notes/:id #show" do
     context "when note exists" do
-      before(:each) do
-        get :show, params: { id: note.id }
-      end
+      before(:each) { get :show, params: { id: note.id } }
 
       it "returns the resource" do
         expect(json_response['id']).to eq note.id
@@ -29,15 +27,10 @@ describe Api::V1::NotesController, type: :controller do
     end
 
     context "when note doesn't exist" do
-      before(:each) do
-        get :show, params: { id: 1 }
-      end
+      before(:each) { get :show, params: { id: 1 } }
 
       it "renders errors" do
         expect(json_response['errors']).to_not be_nil
-      end
-
-      it "renders errors on why" do
         expect(json_response['errors']['not_found']).to_not be_nil
       end
 
@@ -78,9 +71,6 @@ describe Api::V1::NotesController, type: :controller do
 
       it "renders errors" do
         expect(json_response['errors']).to_not be_nil
-      end
-
-      it "renders errors on why" do
         expect(json_response['errors']['title']).to_not be_nil
       end
 
@@ -117,9 +107,6 @@ describe Api::V1::NotesController, type: :controller do
 
       it "renders errors" do
         expect(json_response['errors']).to_not be_nil
-      end
-
-      it "renders errors on why" do
         expect(json_response['errors']['title']).to_not be_nil
       end
 
@@ -133,9 +120,6 @@ describe Api::V1::NotesController, type: :controller do
 
       it "renders errors" do
         expect(json_response['errors']).to_not be_nil
-      end
-
-      it "renders errors on why" do
         expect(json_response['errors']['not_found']).to_not be_nil
       end
 
@@ -145,9 +129,7 @@ describe Api::V1::NotesController, type: :controller do
 
   describe "DELETE /notes/:id #destroy" do
     context "when is deleted" do
-      before(:each) do
-        process :destroy, method: :delete, params: { id: note.id }
-      end
+      before(:each) { process :destroy, method: :delete, params: { id: note.id } }
 
       it "cannot be found anymore" do
         expect{ Note.find(note.id) }.to raise_error(ActiveRecord::RecordNotFound)
@@ -157,15 +139,10 @@ describe Api::V1::NotesController, type: :controller do
     end
 
     context "when doesn't exists" do
-      before(:each) do
-        process :destroy, method: :delete, params: { id: 1 }
-      end
+      before(:each) { process :destroy, method: :delete, params: { id: 1 } }
 
       it "renders errors" do
         expect(json_response['errors']).to_not be_nil
-      end
-
-      it "renders errors on why" do
         expect(json_response['errors']['not_found']).to_not be_nil
       end
 
