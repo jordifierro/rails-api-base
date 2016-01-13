@@ -19,7 +19,7 @@ describe Api::V1::UsersController do
         expect(json_response['password']).to be_nil
       end
 
-      it { expect(response.status).to eq 202 }
+      it { expect(response.status).to eq 201 }
     end
 
     context "is not created" do
