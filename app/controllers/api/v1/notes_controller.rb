@@ -32,8 +32,9 @@ class Api::V1::NotesController < ApplicationController
     head 204
   end
 
+  private
+
   def note_params
     params.require(:note).permit(:title, :content)
   end
-
 end
