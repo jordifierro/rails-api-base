@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Api::V1::UsersController do
-  let(:user) { create :user }
+  let(:user) { build :user }
+  let(:user_attr) { attributes_for :user }
   before(:each) { request.headers['Accept'] = "application/vnd.railsapibase.v1" }
 
   it "routes correctly" do
@@ -11,11 +12,11 @@ describe Api::V1::UsersController do
 
   describe "POST /users #create" do
     context "when is created" do
-      before(:each) { process :create, method: :post, params: { user: user } }
+      before(:each) { process :create, method: :post, params: { user: user_attr } }
 
       it "renders resource created" do
-        expect(json_response['id']).to_not be_nit
-        expect(json_response['email']).to eq @user_attr[:email]
+        expect(json_response['id']).to_not be_nil
+        expect(json_response['email']).to eq user_attr[:email]
         expect(json_response['password']).to be_nil
       end
 
@@ -24,44 +25,45 @@ describe Api::V1::UsersController do
 
     context "is not created" do
       it "without email attr" do
-        user.email = nil
-        process :create, method: :post, params: user
+        user_attr[:email] = nil
+        process :create, method: :post, params: { user: user_attr }
         expect(json_response['errors']).to_not be_nil
         expect(json_response['errors']['email']).to_not be_nil
       end
 
       it "with invalid email" do
-        user.email = "invalid@email"
-        process :create, method: :post, params: user
+        user_attr[:email] = "invalid@email"
+        process :create, method: :post, params: { user: user_attr }
         expect(json_response['errors']).to_not be_nil
         expect(json_response['errors']['email']).to_not be_nil
       end
 
       it "with repeated email" do
-        process :create, method: :post, params: user
-        process :create, method: :post, params: user
+        process :create, method: :post, params: { user: user_attr }
+        process :create, method: :post, params: { user: user_attr }
         expect(json_response['errors']).to_not be_nil
         expect(json_response['errors']['email']).to_not be_nil
       end
 
       it "with short password" do
-        user.password = "1234"
-        user.password_confirmation = "1234"
-        process :create, method: :post, params: user
+        user_attr[:password] = "1234"
+        user_attr[:password_confirmation] = "1234"
+        process :create, method: :post, params: { user: user_attr }
         expect(json_response['errors']).to_not be_nil
         expect(json_response['errors']['password']).to_not be_nil
       end
 
       it "with wrong password confirmation" do
-        user.password = "one_password"
-        user.password_confirmation = "another_password"
-        process :create, method: :post, params: user
+        user_attr[:password] = "one_password"
+        user_attr[:password_confirmation] = "another_password"
+        process :create, method: :post, params: { user: user_attr }
         expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors']['password']).to_not be_nil
+        expect(json_response['errors']['password_confirmation']).to_not be_nil
       end
 
       it "and returns 422" do
-        process :create, method: :post, params: user
+        user_attr[:email] = nil
+        process :create, method: :post, params: { user: user_attr }
         expect(response.status).to eq 422
       end
     end
