@@ -13,15 +13,15 @@ class Api::V1::SessionsController < ApplicationController
       render json: { errors: "Invalid email or password" }, status: 422
     end
   end
-end
-=begin
-  def create
-    if @user = User.authenticate(params[:email], params[:password])
-      self.current_user = @user
-      token = @user.update_authentication_token
-      render json: @user, authentication_token: token
+
+  def destroy
+    user = User.find_by(auth_token: params[:id])
+    if user
+      user.generate_auth_token!
+      user.save
+      head 204
     else
-      render json: {message: I18n.t('sessions.wrong_password_combination')}, status: :unauthorized
+      head 401
     end
   end
-=end
+end

@@ -51,4 +51,25 @@ describe Api::V1::SessionsController do
       end
     end
   end
+
+  describe "DELETE /users/logout #destroy" do
+    context "when logout correctly" do
+      before(:each) do
+        sign_in(:user, [{store: false}, user])
+        process :destroy, method: :delete, params: { id: user.auth_token }
+      end
+
+      it "cannot be found anymore" do
+        expect{ User.find_by!(auth_token: user.auth_token) }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it { expect(response.status).to eq 204 }
+    end
+
+    context "when doesn't exists" do
+      before(:each) { process :destroy, method: :delete, params: { id: "unused_token" } }
+
+      it { expect(response.status).to eq 401 }
+    end
+  end
 end
