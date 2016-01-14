@@ -18,6 +18,7 @@ describe Api::V1::UsersController do
         expect(json_response['id']).to_not be_nil
         expect(json_response['email']).to eq user_attr[:email]
         expect(json_response['password']).to be_nil
+        expect(json_response['auth_token']).to_not be_nil
       end
 
       it { expect(response.status).to eq 201 }
