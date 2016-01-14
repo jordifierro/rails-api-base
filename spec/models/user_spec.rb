@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'securerandom'
 
 describe User do
   let(:user) { create :user }
@@ -7,6 +8,7 @@ describe User do
     it { expect(user).to respond_to(:email) }
     it { expect(user).to respond_to(:password) }
     it { expect(user).to respond_to(:password_confirmation) }
+    it { expect(user).to respond_to(:auth_token) }
 
     it { expect(user).to be_valid }
   end
@@ -19,17 +21,23 @@ describe User do
       expect(new_user.errors.keys).to include(:password)
     end
 
+    it 'auth_token is unique' do
+      create(:user, auth_token: "same_token")
+      expect { create(:user, auth_token: "same_token") }.to raise_error(ActiveRecord::RecordInvalid)
+      expect(create(:user, auth_token: "different_token")).to be_valid
+    end
+
     it 'email is unique' do
-      expect { create(:user, email: user.email) }.to raise_error(ActiveRecord::RecordInvalid)
-      expect(create(:user, email: "different@mail.com")).to be_valid
+      expect { create(:user, email: user.email, auth_token: SecureRandom.hex) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect(create(:user, email: "different@mail.com", auth_token: SecureRandom.hex)).to be_valid
     end
 
     it 'email format' do
       %w(test_mail tre@ any@any 123@l. email@.br @example.com mail.test).each do |email|
-        expect { create(:user, email: email) }.to raise_error(ActiveRecord::RecordInvalid)
+        expect { create(:user, email: email, auth_token: SecureRandom.hex) }.to raise_error(ActiveRecord::RecordInvalid)
       end
       %w(a.b.c@example.com test_mail@gmail.com any@any.net email@test.br 123@mail.test 1☃3@mail.test).each do |email|
-        expect(create(:user, email: email)).to be_valid
+        expect(create(:user, email: email, auth_token: SecureRandom.hex)).to be_valid
       end
     end
 
