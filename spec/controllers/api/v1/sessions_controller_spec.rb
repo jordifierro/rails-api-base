@@ -9,10 +9,14 @@ describe Api::V1::SessionsController do
   end
 
   describe "POST /users/login #create" do
-    context "when is credentials are correct" do
-      before(:each) { process :create, method: :post, params: { user: user } }
+    context "when credentials are correct" do
+      before(:each) do
+        user_attr = attributes_for :user
+        user_attr[:email] = user.email
+        process :create, method: :post, params: { user: user_attr }
+      end
 
-      it "renders resource created" do
+      it "renders user" do
         expect(json_response['id']).to_not be_nil
         expect(json_response['email']).to eq user.email
         expect(json_response['password']).to be_nil
@@ -21,7 +25,7 @@ describe Api::V1::SessionsController do
 
       it "returns new user token" do
         user.reload
-        expect(json_response[:auth_token]).to eql user.auth_token
+        expect(json_response['auth_token']).to eql user.auth_token
       end
 
       it { expect(response.status).to eq 200 }
@@ -30,19 +34,19 @@ describe Api::V1::SessionsController do
     context "when credentials are wrong" do
       it "because of email" do
         user.email = "wrong@email.com"
-        process :create, method: :post, params: { user: user }
+        process :create, method: :post, params: { user: user.attributes }
         expect(json_response['errors']).to_not be_nil
       end
 
       it "because of password" do
         user.password = "invalid_password"
-        process :create, method: :post, params: { user: user }
+        process :create, method: :post, params: { user: user.attributes }
         expect(json_response['errors']).to_not be_nil
       end
 
       it "and returns 422" do
         user.email = "wrong@email.com"
-        process :create, method: :post, params: { user: user }
+        process :create, method: :post, params: { user: user.attributes }
         expect(response.status).to eq 422
       end
     end

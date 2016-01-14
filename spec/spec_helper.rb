@@ -61,6 +61,7 @@ RSpec.configure do |config|
 
   config.include Requests::JsonHelpers, type: :controller
   config.include FactoryGirl::Syntax::Methods
+  config.include Devise::TestHelpers, :type => :controller
 
   # Avoid should syntax, use expect instead
   config.expect_with :rspec do |c|
