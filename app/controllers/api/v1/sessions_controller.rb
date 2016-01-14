@@ -10,7 +10,9 @@ class Api::V1::SessionsController < ApplicationController
       user.save
       render json: user, status: 200
     else
-      render json: { errors: "Invalid email or password" }, status: 422
+      render json: { errors:
+                      [ message: I18n.t('devise.failure.not_found_in_database',
+                        { authentication_keys: 'email' })] }, status: 422
     end
   end
 
