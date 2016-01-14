@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'securerandom'
 
 describe User do
   let(:user) { create :user }
@@ -22,22 +21,28 @@ describe User do
     end
 
     it 'auth_token is unique' do
-      create(:user, auth_token: "same_token")
-      expect { create(:user, auth_token: "same_token") }.to raise_error(ActiveRecord::RecordInvalid)
-      expect(create(:user, auth_token: "different_token")).to be_valid
+      second_user = create(:user)
+      puts user.auth_token
+      puts second_user.auth_token
+      second_user.auth_token = user.auth_token
+      puts second_user.auth_token
+      expect { second_user.save! }.to raise_error(ActiveRecord::RecordInvalid)
+      second_user.auth_token = "different_token"
+      second_user.save
+      expect(second_user).to be_valid
     end
 
     it 'email is unique' do
-      expect { create(:user, email: user.email, auth_token: SecureRandom.hex) }.to raise_error(ActiveRecord::RecordInvalid)
-      expect(create(:user, email: "different@mail.com", auth_token: SecureRandom.hex)).to be_valid
+      expect { create(:user, email: user.email) }.to raise_error(ActiveRecord::RecordInvalid)
+      expect(create(:user, email: "different@mail.com")).to be_valid
     end
 
     it 'email format' do
       %w(test_mail tre@ any@any 123@l. email@.br @example.com mail.test).each do |email|
-        expect { create(:user, email: email, auth_token: SecureRandom.hex) }.to raise_error(ActiveRecord::RecordInvalid)
+        expect { create(:user, email: email) }.to raise_error(ActiveRecord::RecordInvalid)
       end
       %w(a.b.c@example.com test_mail@gmail.com any@any.net email@test.br 123@mail.test 1☃3@mail.test).each do |email|
-        expect(create(:user, email: email, auth_token: SecureRandom.hex)).to be_valid
+        expect(create(:user, email: email)).to be_valid
       end
     end
 
@@ -53,17 +58,17 @@ describe User do
     end
   end
 
-  describe "#generate_authentication_token!" do
+  describe "#generate_auth_token!" do
     it "generates a unique token" do
       @token_user = build :user
       Devise.stub(:friendly_token).and_return("unique_token")
-      @token_user.generate_authentication_token!
+      @token_user.generate_auth_token!
       expect(@token_user.auth_token).to eq "unique_token"
     end
 
     it "generates different token" do
       current_token = user.auth_token
-      user.generate_authentication_token!
+      user.generate_auth_token!
       expect(user.auth_token).not_to eq current_token
     end
   end
