@@ -52,4 +52,19 @@ describe User do
       expect(create(:user, password: "same_password", password_confirmation: "same_password")).to be_valid
     end
   end
+
+  describe "#generate_authentication_token!" do
+    it "generates a unique token" do
+      @token_user = build :user
+      Devise.stub(:friendly_token).and_return("unique_token")
+      @token_user.generate_authentication_token!
+      expect(@token_user.auth_token).to eq "unique_token"
+    end
+
+    it "generates different token" do
+      current_token = user.auth_token
+      user.generate_authentication_token!
+      expect(user.auth_token).not_to eq current_token
+    end
+  end
 end
