@@ -33,17 +33,17 @@ describe Authenticable do
     end
   end
 
-  describe "#auth_with_token" do
+  describe "#auth_with_token!" do
     before do
-      create :user
+      # TO-DO
       authentication.stub(:current_user).and_return(nil)
-      response.stub(:response_code).and_return(401)
       response.stub(:body).and_return({"errors" => "Not authenticated"}.to_json)
+      response.stub(:status).and_return(401)
       authentication.stub(:response).and_return(response)
     end
 
     it "render a json error message" do
-      expect(json_response[:errors]).to eq "Not authenticated"
+      expect(json_response['errors']).to eq "Not authenticated"
     end
 
     it {  expect(response.status).to eq 401 }
