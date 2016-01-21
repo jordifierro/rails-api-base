@@ -12,9 +12,9 @@ module Api::V1
     def create
       note = Note.new(note_params)
       if note.save
-        render json: note, status: 201
+        render json: note, status: :created
       else
-        render json: { errors: note.errors }, status: 422
+        render json: { errors: note.errors }, status: :unprocessable_entity
       end
     end
 
@@ -23,14 +23,14 @@ module Api::V1
       if note.update(note_params)
         render json: note
       else
-        render json: { errors: note.errors }, status: 422
+        render json: { errors: note.errors }, status: :unprocessable_entity
       end
     end
 
     def destroy
       note = Note.find(params[:id])
       note.destroy
-      head 204
+      head :no_content
     end
 
     private

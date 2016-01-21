@@ -9,11 +9,11 @@ module Api::V1
         sign_in(:user, [{store: false}, user])
         user.generate_auth_token!
         user.save
-        render json: user, status: 200
+        render json: user, status: :ok
       else
         render json: { errors:
                         [ message: I18n.t('devise.failure.not_found_in_database',
-                          { authentication_keys: 'email' })] }, status: 422
+                          { authentication_keys: 'email' })] }, status: :unprocessable_entity
       end
     end
 
@@ -22,9 +22,9 @@ module Api::V1
       if user
         user.generate_auth_token!
         user.save
-        head 204
+        head :no_content
       else
-        head 401
+        head :unauthorized
       end
     end
   end
