@@ -87,10 +87,6 @@ describe Api::V1::UsersController do
     context "when not correctly authorized" do
       before(:each) { process :destroy, method: :delete, params: { id: "not_used" } }
 
-      it "renders errors" do
-        expect(json_response['errors']).to_not be_nil
-      end
-
       it { expect(response.status).to eq 401 }
     end
   end
