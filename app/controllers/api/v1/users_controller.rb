@@ -1,5 +1,6 @@
 module Api::V1
   class UsersController < ApiController
+    before_action :auth_with_token!, except: [:create]
 
     def create
       user = User.new(user_params)
@@ -11,8 +12,7 @@ module Api::V1
     end
 
     def destroy
-      user = User.find(params[:id])
-      user.destroy
+      current_user.destroy
       head 204
     end
 

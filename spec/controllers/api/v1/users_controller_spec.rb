@@ -72,7 +72,10 @@ describe Api::V1::UsersController do
 
   describe "DELETE /users/:id #destroy" do
     context "when is deleted" do
-      before(:each) { process :destroy, method: :delete, params: { id: user.id } }
+      before(:each) do
+        request.headers['Authorization'] = user.auth_token
+        process :destroy, method: :delete, params: { id: "not_used" }
+      end
 
       it "cannot be found anymore" do
         expect{ User.find(user.id) }.to raise_error(ActiveRecord::RecordNotFound)
@@ -81,15 +84,14 @@ describe Api::V1::UsersController do
       it { expect(response.status).to eq 204 }
     end
 
-    context "when doesn't exists" do
-      before(:each) { process :destroy, method: :delete, params: { id: 1 } }
+    context "when not correctly authorized" do
+      before(:each) { process :destroy, method: :delete, params: { id: "not_used" } }
 
       it "renders errors" do
         expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors']['not_found']).to_not be_nil
       end
 
-      it { expect(response.status).to eq 404 }
+      it { expect(response.status).to eq 401 }
     end
   end
 end
