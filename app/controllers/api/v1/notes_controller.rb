@@ -11,6 +11,8 @@ module Api::V1
 
     def create
       note = Note.new(note_params)
+      user = User.find(note_params[:user_id])
+      note.user = user
       if note.save
         render json: note, status: :created
       else
@@ -36,7 +38,7 @@ module Api::V1
     private
 
     def note_params
-      params.require(:note).permit(:title, :content)
+      params.require(:note).permit(:title, :content, :user_id)
     end
   end
 end

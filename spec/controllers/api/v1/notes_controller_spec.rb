@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Api::V1::NotesController, type: :controller do
   before(:each) { request.headers['Accept'] = "application/vnd.railsapibase.v1" }
   let(:note) { create :note }
+  let(:user) { create :user }
 
   it "routes correctly" do
     expect(get: "/notes").to route_to("api/v1/notes#index", format: :json)
@@ -52,6 +53,7 @@ describe Api::V1::NotesController, type: :controller do
     context "when is created" do
       before(:each) do
         @note_attr = attributes_for :note
+        @note_attr[:user_id] = user.id
         process :create, method: :post, params: { note: @note_attr }
       end
 
@@ -65,7 +67,7 @@ describe Api::V1::NotesController, type: :controller do
 
     context "when is not created" do
       before(:each) do
-        @invalid_attr = { title_required: "to_create_note" }
+        @invalid_attr = { title_required: "to_create_note", user_id: user.id }
         process :create, method: :post, params: { note: @invalid_attr }
       end
 
