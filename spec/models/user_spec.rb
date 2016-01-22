@@ -22,10 +22,7 @@ describe User do
 
     it 'auth_token is unique' do
       second_user = create(:user)
-      puts user.auth_token
-      puts second_user.auth_token
       second_user.auth_token = user.auth_token
-      puts second_user.auth_token
       expect { second_user.save! }.to raise_error(ActiveRecord::RecordInvalid)
       second_user.auth_token = "different_token"
       second_user.save
