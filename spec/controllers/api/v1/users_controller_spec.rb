@@ -73,7 +73,7 @@ describe Api::V1::UsersController do
   describe "DELETE /users/:id #destroy" do
     context "when is deleted" do
       before(:each) do
-        set_auth_header user.auth_token
+        set_auth_header user
         process :destroy, method: :delete, params: { id: "not_used" }
       end
 
