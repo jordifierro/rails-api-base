@@ -72,10 +72,7 @@ describe Api::V1::UsersController do
 
   describe "DELETE /users/:id #destroy" do
     context "when is deleted" do
-      before(:each) do
-        set_auth_header user
-        process :destroy, method: :delete, params: { id: "not_used" }
-      end
+      before(:each) { signed_delete :destroy, params: { id: "not_used" } }
 
       it "cannot be found anymore" do
         expect{ User.find(user.id) }.to raise_error(ActiveRecord::RecordNotFound)
