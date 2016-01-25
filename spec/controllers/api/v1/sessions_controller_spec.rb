@@ -13,7 +13,7 @@ describe Api::V1::SessionsController do
       before(:each) do
         user_attr = attributes_for :user
         user_attr[:email] = user.email
-        process :create, method: :post, params: { user: user_attr }
+        post :create, params: { user: user_attr }
       end
 
       it "renders user" do
@@ -34,7 +34,7 @@ describe Api::V1::SessionsController do
     context "when credentials are wrong" do
       it "because of email" do
         user.email = "wrong@email.com"
-        process :create, method: :post, params: { user: user.attributes }
+        post :create, params: { user: user.attributes }
         expect(json_response['errors']).to_not be_nil
       end
 
@@ -64,7 +64,7 @@ describe Api::V1::SessionsController do
     end
 
     context "when doesn't exists" do
-      before(:each) { process :destroy, method: :delete, params: { id: "unused_token" } }
+      before(:each) { delete :destroy, params: { id: "unused_token" } }
 
       it { expect(response.status).to eq 401 }
     end

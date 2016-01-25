@@ -12,7 +12,7 @@ describe Api::V1::UsersController do
 
   describe "POST /users #create" do
     context "when is created" do
-      before(:each) { process :create, method: :post, params: { user: user_attr } }
+      before(:each) { post :create, params: { user: user_attr } }
 
       it "renders resource created" do
         expect(json_response['id']).to_not be_nil
@@ -27,21 +27,21 @@ describe Api::V1::UsersController do
     context "is not created" do
       it "without email attr" do
         user_attr[:email] = nil
-        process :create, method: :post, params: { user: user_attr }
+        post :create, params: { user: user_attr }
         expect(json_response['errors']).to_not be_nil
         expect(json_response['errors']['email']).to_not be_nil
       end
 
       it "with invalid email" do
         user_attr[:email] = "invalid@email"
-        process :create, method: :post, params: { user: user_attr }
+        post :create, params: { user: user_attr }
         expect(json_response['errors']).to_not be_nil
         expect(json_response['errors']['email']).to_not be_nil
       end
 
       it "with repeated email" do
-        process :create, method: :post, params: { user: user_attr }
-        process :create, method: :post, params: { user: user_attr }
+        post :create, params: { user: user_attr }
+        post :create, params: { user: user_attr }
         expect(json_response['errors']).to_not be_nil
         expect(json_response['errors']['email']).to_not be_nil
       end
@@ -49,7 +49,7 @@ describe Api::V1::UsersController do
       it "with short password" do
         user_attr[:password] = "1234"
         user_attr[:password_confirmation] = "1234"
-        process :create, method: :post, params: { user: user_attr }
+        post :create, params: { user: user_attr }
         expect(json_response['errors']).to_not be_nil
         expect(json_response['errors']['password']).to_not be_nil
       end
@@ -57,14 +57,14 @@ describe Api::V1::UsersController do
       it "with wrong password confirmation" do
         user_attr[:password] = "one_password"
         user_attr[:password_confirmation] = "another_password"
-        process :create, method: :post, params: { user: user_attr }
+        post :create, params: { user: user_attr }
         expect(json_response['errors']).to_not be_nil
         expect(json_response['errors']['password_confirmation']).to_not be_nil
       end
 
       it "and returns 422" do
         user_attr[:email] = nil
-        process :create, method: :post, params: { user: user_attr }
+        post :create, params: { user: user_attr }
         expect(response.status).to eq 422
       end
     end
@@ -82,7 +82,7 @@ describe Api::V1::UsersController do
     end
 
     context "when not correctly authorized" do
-      before(:each) { process :destroy, method: :delete, params: { id: "not_used" } }
+      before(:each) { delete :destroy, params: { id: "not_used" } }
 
       it { expect(response.status).to eq 401 }
     end
