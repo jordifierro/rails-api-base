@@ -1,9 +1,12 @@
 require 'spec_helper'
 
 describe Api::V1::NotesController, type: :controller do
-  before(:each) { request.headers['Accept'] = "application/vnd.railsapibase.v1" }
-  let(:note) { create :note }
   let(:user) { create :user }
+  let(:note) { create :note, user: user }
+  before(:each) do
+    request.headers['Accept'] = "application/vnd.railsapibase.v1"
+    sign_in_user user
+  end
 
   it "routes correctly" do
     expect(get: "/notes").to route_to("api/v1/notes#index", format: :json)
@@ -16,7 +19,7 @@ describe Api::V1::NotesController, type: :controller do
 
   describe "GET /notes/:id #show" do
     context "when note exists" do
-      before(:each) { get :show, params: { id: note.id } }
+      before(:each) { signed_get :show, params: { id: note.id } }
 
       it "returns the resource" do
         expect(json_response['id']).to eq note.id
@@ -28,7 +31,7 @@ describe Api::V1::NotesController, type: :controller do
     end
 
     context "when note doesn't exist" do
-      before(:each) { get :show, params: { id: 1 } }
+      before(:each) { signed_get :show, params: { id: 1 } }
 
       it "renders errors" do
         expect(json_response['errors']).to_not be_nil
@@ -41,8 +44,8 @@ describe Api::V1::NotesController, type: :controller do
 
   describe "GET /notes #index" do
     it "returns some notes" do
-      create_list(:note, 3)
-      get :index
+      create_list(:note, 3, user: user)
+      signed_get :index, nil
       expect(json_response.count).to eq 3
     end
 
@@ -54,7 +57,7 @@ describe Api::V1::NotesController, type: :controller do
       before(:each) do
         @note_attr = attributes_for :note
         @note_attr[:user_id] = user.id
-        process :create, method: :post, params: { note: @note_attr }
+        signed_post :create, params: { note: @note_attr }
       end
 
       it "renders resource created" do
@@ -68,7 +71,7 @@ describe Api::V1::NotesController, type: :controller do
     context "when is not created" do
       before(:each) do
         @invalid_attr = { title_required: "to_create_note", user_id: user.id }
-        process :create, method: :post, params: { note: @invalid_attr }
+        signed_post :create, params: { note: @invalid_attr }
       end
 
       it "renders errors" do
@@ -84,7 +87,7 @@ describe Api::V1::NotesController, type: :controller do
     context "when is updated" do
       before(:each) do
         @update_attr = attributes_for :note
-        process :update, method: :put, params: { id: note.id, note: @update_attr }
+        signed_put :update, params: { id: note.id, note: @update_attr }
       end
 
       it "renders resource updated" do
@@ -98,7 +101,7 @@ describe Api::V1::NotesController, type: :controller do
     context "when is not updated" do
       before(:each) do
         @invalid_attr = { title: "" }
-        process :update, method: :put, params: { id: note.id, note: @invalid_attr }
+        signed_put :update, params: { id: note.id, note: @invalid_attr }
       end
 
       it "doesn't modify the note" do
@@ -117,7 +120,7 @@ describe Api::V1::NotesController, type: :controller do
 
     context "when is not found" do
       before(:each) do
-        process :update, method: :put, params: { id: 1 }
+        signed_put :update, params: { id: 1 }
       end
 
       it "renders errors" do
@@ -131,7 +134,7 @@ describe Api::V1::NotesController, type: :controller do
 
   describe "DELETE /notes/:id #destroy" do
     context "when is deleted" do
-      before(:each) { process :destroy, method: :delete, params: { id: note.id } }
+      before(:each) { signed_delete :destroy, params: { id: note.id } }
 
       it "cannot be found anymore" do
         expect{ Note.find(note.id) }.to raise_error(ActiveRecord::RecordNotFound)
@@ -141,7 +144,7 @@ describe Api::V1::NotesController, type: :controller do
     end
 
     context "when doesn't exists" do
-      before(:each) { process :destroy, method: :delete, params: { id: 1 } }
+      before(:each) { signed_delete :destroy, params: { id: 1 } }
 
       it "renders errors" do
         expect(json_response['errors']).to_not be_nil
