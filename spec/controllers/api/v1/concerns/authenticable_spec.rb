@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 class Authentication
-  include Authenticable
+  include Api::V1::Concerns::Authenticable
 end
 
-describe Authenticable do
+describe Api::V1::Concerns::Authenticable do
   let(:user) { user = create :user }
   let(:authentication) { Authentication.new }
   subject { authentication }

@@ -1,9 +1,13 @@
-class Api::V1::ApiController < ApplicationController
-  before_action :auth_with_token!
+module Api::V1
+  class ApiController < ApplicationController
+    include Concerns::Authenticable
 
-  rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+    before_action :auth_with_token!
 
-  def not_found
-    render json: { errors: { not_found: "Resource not found" } }, status: :not_found
+    rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+
+    def not_found
+      render json: { errors: { not_found: "Resource not found" } }, status: :not_found
+    end
   end
 end
