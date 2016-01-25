@@ -20,14 +20,9 @@ module Api::V1
     end
 
     def destroy
-      user = User.find_by(auth_token: params[:id])
-      if user
-        user.generate_auth_token!
-        user.save
-        head :no_content
-      else
-        head :unauthorized
-      end
+      current_user.generate_auth_token!
+      current_user.save
+      head :no_content
     end
   end
 end

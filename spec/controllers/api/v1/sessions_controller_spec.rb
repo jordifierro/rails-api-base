@@ -54,9 +54,7 @@ describe Api::V1::SessionsController do
 
   describe "DELETE /users/logout #destroy" do
     context "when logout correctly" do
-      before(:each) do
-        signed_delete :destroy, params: { id: user.auth_token }
-      end
+      before(:each) { signed_delete :destroy, nil }
 
       it "cannot be found anymore" do
         expect{ User.find_by!(auth_token: user.auth_token) }.to raise_error(ActiveRecord::RecordNotFound)
