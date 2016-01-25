@@ -2,17 +2,15 @@ module Api::V1
   class NotesController < ApiController
 
     def index
-      render json: Note.all
+      render json: current_user.notes.all
     end
 
     def show
-      render json: Note.find(params[:id])
+      render json: current_user.notes.find(params[:id])
     end
 
     def create
-      note = Note.new(note_params)
-      user = User.find(note_params[:user_id])
-      note.user = user
+      note = current_user.notes.new(note_params)
       if note.save
         render json: note, status: :created
       else
@@ -21,7 +19,7 @@ module Api::V1
     end
 
     def update
-      note = Note.find(params[:id])
+      note = current_user.notes.find(params[:id])
       if note.update(note_params)
         render json: note
       else
@@ -30,7 +28,7 @@ module Api::V1
     end
 
     def destroy
-      note = Note.find(params[:id])
+      note = current_user.notes.find(params[:id])
       note.destroy
       head :no_content
     end

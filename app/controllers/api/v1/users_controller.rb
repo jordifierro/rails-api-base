@@ -1,6 +1,6 @@
 module Api::V1
   class UsersController < ApiController
-    before_action :auth_with_token!, except: [:create]
+    skip_before_action :auth_with_token!, only: [:create]
 
     def create
       user = User.new(user_params)

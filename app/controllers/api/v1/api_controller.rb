@@ -1,4 +1,6 @@
 class Api::V1::ApiController < ApplicationController
+  before_action :auth_with_token!
+
   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
 
   def not_found
