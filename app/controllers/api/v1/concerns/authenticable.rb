@@ -1,6 +1,11 @@
 module Api::V1::Concerns
-  module Authenticable extend ActiveSupport::Concern
+  module Authenticable
+    extend ActiveSupport::Concern
 
+    included do
+      before_action :auth_with_token!
+    end
+    
     # Devise methods overwrites
     def current_user
       @current_user ||= User.find_by(auth_token: request.headers['Authorization'])
