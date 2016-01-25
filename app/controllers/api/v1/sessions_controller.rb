@@ -1,5 +1,7 @@
 module Api::V1
   class SessionsController < ApiController
+    skip_before_action :auth_with_token!, only: [:create]
+
     def create
       user_email = params[:user][:email]
       user_password = params[:user][:password]

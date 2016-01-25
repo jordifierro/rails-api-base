@@ -55,8 +55,7 @@ describe Api::V1::SessionsController do
   describe "DELETE /users/logout #destroy" do
     context "when logout correctly" do
       before(:each) do
-        sign_in(:user, [{store: false}, user])
-        process :destroy, method: :delete, params: { id: user.auth_token }
+        signed_delete :destroy, params: { id: user.auth_token }
       end
 
       it "cannot be found anymore" do
