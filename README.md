@@ -10,15 +10,19 @@ The application itself is almost empty,
 it only handles users, sessions and notes.
 Here are some characteristics:
 
-* Follows RESTful API good practices: verbs, endpoints, status codes...
-* ...api code versioning (by header).
+* [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer)
+good practices: verbs, endpoints, status codes...
+* ...api code custom versioning (by header).
 * Example ('notes' objects with 'title' and 'content')
 of a basic object model, controller, routes and tests.
 * [Devise](https://github.com/plataformatec/devise) to handle users.
 * Custom token authentication (by header) and basic session management.
-* Usage of concerns and other good practices.
-* All code tested using [rspec](https://github.com/rspec/rspec).
-* [Postgres](http://www.postgresql.org/) configured as database.
+* Usage of
+[Concerns](http://api.rubyonrails.org/classes/ActiveSupport/Concern.html)
+and other rails good practices.
+* All code tested using [rspec](https://github.com/rspec/rspec) following
+latest [betterspecs.org](http://betterspecs.org/) guidelines.
+* [Postgres](http://www.postgresql.org/) as database.
 * Rails 5.0.0.beta1 (API module) and Ruby 2.3.0.
 
 TO-(maybe)-DO List:
