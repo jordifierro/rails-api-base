@@ -17,7 +17,7 @@ describe Api::V1::VersionsController, type: :controller do
       before(:each) { signed_get :expiration, nil }
 
       it "returns expiration message" do
-        expect(json_response['errors'][0]['message']).to eq I18n.t('version.expiration',
+        expect(json_response['message']).to eq I18n.t('version.expiration',
                                           { expiration_date: 1.month.from_now.strftime('%x') })
       end
 
