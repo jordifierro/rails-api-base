@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::V1::Concerns::Authenticable, type: :controller do
+describe Api::V1::Concerns::Authenticator, type: :controller do
   controller(Api::V1::ApiController) do
     def fake_current_user
       render json: current_user
