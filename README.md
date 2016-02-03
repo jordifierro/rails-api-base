@@ -27,13 +27,13 @@ latest [betterspecs.org](http://betterspecs.org/) guidelines.
 * Rails 5.0.0.beta1 (API module) and Ruby 2.3.0.
 * Version expiration system.
 * Secret api key verification to create users.
+* Response messages internationalization by header.
 
 TO-(maybe)-DO list:
 
 * Installation and setup tutorial.
 * Standardize i/o and use a json serialization library.
 * Scripts to achieve a faster installation and setup.
-* Response messages internationalization.
 * Add sample privacy policy.
 * Add elements pagination.
 
