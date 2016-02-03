@@ -3,7 +3,10 @@ require 'spec_helper'
 describe Api::V1::UsersController do
   let(:user) { create :user }
   let(:user_attr) { attributes_for :user }
-  before(:each) { request.headers['Accept'] = "application/vnd.railsapibase.v1" }
+  before(:each) do
+    ENV['SECRET_API_KEY'] = nil
+    request.headers['Accept'] = "application/vnd.railsapibase.v1"
+  end
 
   it "routes correctly" do
     expect(post: "/users").to route_to("api/v1/users#create", format: :json)
@@ -11,8 +14,25 @@ describe Api::V1::UsersController do
   end
 
   describe "POST /users #create" do
-    context "when is created" do
+    context "when is created without api_key" do
       before(:each) { post :create, params: { user: user_attr } }
+
+      it "renders resource created" do
+        expect(json_response['id']).to_not be_nil
+        expect(json_response['email']).to eq user_attr[:email]
+        expect(json_response['password']).to be_nil
+        expect(json_response['auth_token']).to_not be_nil
+      end
+
+      it { expect(response.status).to eq 201 }
+    end
+
+    context "when is created with api_key" do
+      before(:each) do
+        ENV['SECRET_API_KEY'] = "SECRET_API_KEY"
+        request.headers["Authorization"] = "SECRET_API_KEY"
+        post :create, params: { user: user_attr }
+      end
 
       it "renders resource created" do
         expect(json_response['id']).to_not be_nil
@@ -68,6 +88,16 @@ describe Api::V1::UsersController do
         expect(response.status).to eq 422
       end
     end
+  end
+
+  context "is not created because wrong api_key" do
+    before(:each) do
+      ENV['SECRET_API_KEY'] = "SECRET_API_KEY"
+      request.headers["Authorization"] = "WRONG_api_key"
+      post :create, params: { user: user_attr }
+    end
+
+    it { expect(response.status).to eq 401 }
   end
 
   describe "DELETE /users/:id #destroy" do

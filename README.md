@@ -26,11 +26,11 @@ latest [betterspecs.org](http://betterspecs.org/) guidelines.
 * [Postgres](http://www.postgresql.org/) as database.
 * Rails 5.0.0.beta1 (API module) and Ruby 2.3.0.
 * Version expiration system.
+* Secret api key verification to create users.
 
 TO-(maybe)-DO list:
 
 * Installation and setup tutorial.
-* Secret api key verification to create users.
 * Standardize i/o and use a json serialization library.
 * Scripts to achieve a faster installation and setup.
 * Response messages internationalization.
