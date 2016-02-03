@@ -8,6 +8,7 @@ RailsApiBase::Application.routes.draw do
       delete 'users/logout' => 'sessions#destroy'
       resources :users, only: [:create, :destroy]
       resources :notes
+      get 'versions/expiration' => 'versions#expiration'
     end
   end
 end
