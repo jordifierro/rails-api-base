@@ -8,7 +8,7 @@ This projects aims to be:
 
 The application itself is almost empty,
 it only handles users, sessions and notes.
-Here are some characteristics:
+Here are the finished specifications:
 
 * [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer)
 good practices: verbs, endpoints, status codes...
@@ -19,19 +19,23 @@ of a basic object model, controller, routes and tests.
 * Custom token authentication (by header) and basic session management.
 * Usage of
 [Concerns](http://api.rubyonrails.org/classes/ActiveSupport/Concern.html)
+to manage authentication and error handling,
 and other rails good practices.
 * All code tested using [rspec](https://github.com/rspec/rspec) following
 latest [betterspecs.org](http://betterspecs.org/) guidelines.
 * [Postgres](http://www.postgresql.org/) as database.
 * Rails 5.0.0.beta1 (API module) and Ruby 2.3.0.
+* Version expiration system.
 
-TO-(maybe)-DO List:
+TO-(maybe)-DO list:
 
 * Installation and setup tutorial.
-* Version expiration system.
 * Secret api key verification to create users.
 * Standardize i/o and use a json serialization library.
 * Scripts to achieve a faster installation and setup.
+* Response messages internationalization.
+* Add sample privacy policy.
+* Add elements pagination.
 
 An Android client base application will be developed with the same goal
 and will consume data from this one.
