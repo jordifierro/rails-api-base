@@ -7,7 +7,7 @@ module Api::V1::Concerns
     end
 
     def not_found
-      render json: { errors: { not_found: I18n.t('error.messages.not_found') } },
+      render json: { errors: { not_found: I18n.t('errors.messages.not_found') } },
                       status: :not_found
     end
   end

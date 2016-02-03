@@ -3,5 +3,6 @@ module Api::V1
     include Concerns::Authenticable
     include Concerns::ErrorHandler
     include Concerns::VersionExpirationHandler
+    include Concerns::Internationalizator
   end
 end

@@ -12,7 +12,7 @@ describe Api::V1::Concerns::ErrorHandler, type: :controller do
   context 'when record not found triggered' do
     before { signed_get :fake_not_found, nil }
 
-    it { expect(json_response['errors']['not_found']).to eq I18n.t('error.messages.not_found')}
+    it { expect(json_response['errors']['not_found']).to eq I18n.t('errors.messages.not_found')}
     it { expect(response.status).to eq 404 }
   end
 end
