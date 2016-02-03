@@ -13,7 +13,8 @@ module Api::V1::Concerns
     end
 
     def check_expiration!
-      head :upgrade_required unless supported_version?
+      render json: { errors: [ message: I18n.t('version.expired') ] },
+                        status: :upgrade_required unless supported_version?
     end
 
     def supported_version?

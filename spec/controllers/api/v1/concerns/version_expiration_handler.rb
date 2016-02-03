@@ -22,6 +22,10 @@ describe Api::V1::Concerns::VersionExpirationHandler, type: :controller do
       signed_get :fake_method, nil
     end
 
+    it "returns expired message" do
+      expect(json_response['errors'][0]['message']).to eq I18n.t('version.expired')
+    end
+
     it { expect(response.status).to eq 426 }
   end
 end
