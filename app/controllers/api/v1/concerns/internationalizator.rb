@@ -14,7 +14,10 @@ module Api::V1::Concerns
 
     def extract_locale_from_accept_language_header
       if request.env['HTTP_ACCEPT_LANGUAGE']
-        request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+        language = request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
+        if I18n.available_locales.include?(language.to_sym)
+          language
+        end
       end
     end
   end

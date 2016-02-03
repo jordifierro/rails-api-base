@@ -25,4 +25,10 @@ describe Api::V1::Concerns::Internationalizator, type: :controller do
     signed_get :fake_not_found, nil
     expect(json_response['errors']['not_found']).to eq I18n.t('errors.messages.not_found', locale: :es)
   end
+
+  it "return english message when unknown locale" do
+    request.env['HTTP_ACCEPT_LANGUAGE'] = 'wk'
+    signed_get :fake_not_found, nil
+    expect(json_response['errors']['not_found']).to eq I18n.t('errors.messages.not_found', locale: :en)
+  end
 end
