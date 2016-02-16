@@ -9,14 +9,14 @@ describe Api::V1::Concerns::Authenticator, type: :controller do
 
   before { routes.draw { get 'fake_current_user' => 'anonymous#fake_current_user' } }
 
-  context 'when correctly authenticated' do
+  context "when correctly authenticated" do
     before { signed_get :fake_current_user, nil }
 
     it { expect(json_response['email']).to_not be_nil }
     it { expect(response.status).to eq 200 }
   end
 
-  context 'when not authenticated' do
+  context "when not authenticated" do
     before { get :fake_current_user, nil }
 
     it { expect(response.status).to eq 401 }

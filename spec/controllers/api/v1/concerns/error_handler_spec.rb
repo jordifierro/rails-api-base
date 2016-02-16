@@ -9,7 +9,7 @@ describe Api::V1::Concerns::ErrorHandler, type: :controller do
 
   before { routes.draw { get 'fake_not_found' => 'anonymous#fake_not_found' } }
 
-  context 'when record not found triggered' do
+  context "when record not found triggered" do
     before { signed_get :fake_not_found, nil }
 
     it { expect(json_response['errors']['not_found']).to eq I18n.t('errors.messages.not_found')}
