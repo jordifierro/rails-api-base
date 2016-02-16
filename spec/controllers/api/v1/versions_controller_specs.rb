@@ -14,7 +14,10 @@ describe Api::V1::VersionsController, type: :controller do
 
   describe "GET /versions/:id #show" do
     context "when expiration date exists" do
-      before(:each) { signed_get :expiration, nil }
+      before(:each) do
+        ENV['V1_EXPIRATION_DATE'] = 1.month.from_now.to_s
+        signed_get :expiration, nil
+      end
 
       it "returns expiration message" do
         expect(json_response['message']).to eq I18n.t('version.expiration',

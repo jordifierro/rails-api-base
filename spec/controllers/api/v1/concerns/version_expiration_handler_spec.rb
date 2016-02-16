@@ -10,15 +10,26 @@ describe Api::V1::Concerns::VersionExpirationHandler, type: :controller do
 
   before { routes.draw { get 'fake_method' => 'anonymous#fake_method' } }
 
-  context "when version is working" do
+  after(:each) { ENV['V1_EXPIRATION_DATE'] = nil }
+
+  context "when no expiration date" do
     before { signed_get :fake_method, nil }
+
+    it { expect(response.status).to eq 200 }
+  end
+
+  context "when expiration is later" do
+    before do
+      ENV['V1_EXPIRATION_DATE'] = 1.month.from_now.to_s
+      signed_get :fake_method, nil
+    end
 
     it { expect(response.status).to eq 200 }
   end
 
   context "when version has expired" do
     before do
-      Date.stub(:today).and_return(2.months.from_now)
+      ENV['V1_EXPIRATION_DATE'] = 1.month.ago.to_s
       signed_get :fake_method, nil
     end
 

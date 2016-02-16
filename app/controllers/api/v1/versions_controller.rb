@@ -3,7 +3,7 @@ module Api::V1
     def expiration
       if expiration_date
         render json: { message: I18n.t('version.expiration',
-                                          { expiration_date: expiration_date.strftime('%x') }) }
+                                          { expiration_date: Date.parse(expiration_date).strftime('%x') }) }
       else
         render :no_content
       end

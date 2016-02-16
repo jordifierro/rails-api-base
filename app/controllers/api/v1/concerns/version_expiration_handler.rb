@@ -8,8 +8,12 @@ module Api::V1::Concerns
       before_action :check_expiration!
     end
 
+    def api_version
+      self.class.superclass.name.to_s.split("::").second
+    end
+
     def expiration_date
-      @expiration_date ||= 1.month.from_now
+      @expiration_date ||= ENV[api_version + '_EXPIRATION_DATE']
     end
 
     def check_expiration!
@@ -18,7 +22,7 @@ module Api::V1::Concerns
     end
 
     def supported_version?
-      expiration_date && Date.today < expiration_date
+      !expiration_date || Date.today < Date.parse(expiration_date)
     end
   end
 end
