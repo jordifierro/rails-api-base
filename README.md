@@ -164,11 +164,12 @@ The project uses Rails 5.0.0.beta1 (API module) and Ruby 2.3.0
 and intends to be kept up to date.
 
 
-TO-(maybe)-DO list:
+#### Todo List
 
-* Standardize i/o and use a json serialization library.
-* Add elements pagination.
-* Add sample privacy policy.
+- [ ] Standardize json i/o and add a serialization library.
+- [ ] Add elements pagination.
+- [ ] Add sample privacy policy.
+- [ ] Update ruby and rails versions.
 
 An Android client base application
 will be developed with the same goal as this.
