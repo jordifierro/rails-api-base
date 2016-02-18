@@ -40,9 +40,6 @@ An Android client base application will be developed with the same goal
 and will consume data from this one.
 A sample version of both will be online as soon as they are finished...
 
-I'm not a rails experienced developer
-so all suggestions and contributions are more than welcome!
-
 ## Quick start
 
 * Install ruby version 2.3.0 and set it with your ruby environment manager
@@ -83,3 +80,19 @@ rspec
 ```
 
 That's it!
+
+
+## Contribute
+
+I'm not a rails experienced developer
+so all suggestions and contributions are more than welcome!
+
+* Fork this repo.
+* Create your feature branch (git checkout -b feature-name).
+* Commit your changes (git commit -m 'Implement new function').
+* Push the changes (git push origin feature-name).
+* Create a pull request and I'll merge it with the project.
+
+#### Contributors
+
+Unfortunately, there are no contributors yet.
