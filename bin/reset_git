@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+rm -rf .git/
+git init
+git add .
+git commit -m "Initialize project from rails-api-base"
+git remote add origin $1
+git push -u origin master
