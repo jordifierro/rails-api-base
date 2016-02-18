@@ -1,4 +1,4 @@
-## Rails Api Base
+# Rails Api Base
 
 This projects aims to be:
 
@@ -28,14 +28,13 @@ latest [betterspecs.org](http://betterspecs.org/) guidelines.
 * Version expiration system.
 * Secret api key verification to create users.
 * Response messages internationalization by header.
+* Scripts to achieve a faster installation and setup.
 
 TO-(maybe)-DO list:
 
-* Installation and setup tutorial.
 * Standardize i/o and use a json serialization library.
-* Scripts to achieve a faster installation and setup.
-* Add sample privacy policy.
 * Add elements pagination.
+* Add sample privacy policy.
 
 An Android client base application will be developed with the same goal
 and will consume data from this one.
@@ -43,3 +42,44 @@ A sample version of both will be online as soon as they are finished...
 
 I'm not a rails experienced developer
 so all suggestions and contributions are more than welcome!
+
+## Quick start
+
+* Install ruby version 2.3.0 and set it with your ruby environment manager
+([more info here](https://www.ruby-lang.org/en/documentation/installation/)).
+
+* Install Postgres and start de PostgreSQL server in the foreground
+([more info here](https://wiki.postgresql.org/wiki/Detailed_installation_guides#MacOS)).
+
+* Clone the repository and get inside it:
+```
+git clone git://github.com/jordifierro/rails-api-base.git --origin rails-api-base your-project-name
+cd your-project-name
+```
+
+* Rename whole project and reset README.md:
+```
+./bin/rename_project YourProjectName
+```
+
+* Create a postgres role to let rails manage the db:
+```
+./bin/create_psql_user yourprojectname
+```
+
+* Setup the gems and databases:
+```
+./bin/setup
+```
+
+* Run tests:
+```
+rspec
+```
+
+* Once all tests are green, create a new remote repository and then execute this to reset the repo and push it:
+```
+./bin/reset_git https://github.com/yourusername/your-project-name.git
+```
+
+That's it!
