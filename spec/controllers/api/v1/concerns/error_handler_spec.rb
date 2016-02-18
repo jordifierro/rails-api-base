@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Api::V1::Concerns::ErrorHandler, type: :controller do
   controller(Api::V1::ApiController) do
     def fake_not_found
-      User.find(1)
+      raise ActiveRecord::RecordNotFound
     end
   end
 
