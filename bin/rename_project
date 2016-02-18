@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 
 APP_NAME=$1
-find . -not -path '*/\.*' -not -path '*/rename' -type f -exec sed -i '' -e "s/RailsApiBase/$APP_NAME/g" {} +
+find . -not -path '*/\.*' -not -path '*/rename_project' -type f -exec sed -i '' -e "s/RailsApiBase/$APP_NAME/g" {} +
 echo "# $APP_NAME" > README.md
 APP_NAME="$(tr [A-Z] [a-z] <<< "$APP_NAME")"
-find . -not -path '*/\.*' -not -path '*/rename' -type f -exec sed -i '' -e "s/railsapibase/$APP_NAME/g" {} +
+find . -not -path '*/\.*' -not -path '*/rename_project' -type f -exec sed -i '' -e "s/railsapibase/$APP_NAME/g" {} +
+echo Project name changed and README.md content emptied
