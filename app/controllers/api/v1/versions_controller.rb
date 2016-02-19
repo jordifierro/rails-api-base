@@ -5,7 +5,7 @@ module Api::V1
         render json: { message: I18n.t('version.expiration',
                                           { expiration_date: Date.parse(expiration_date).strftime('%x') }) }
       else
-        render :no_content
+        head :no_content
       end
     end
   end

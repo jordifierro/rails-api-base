@@ -7,6 +7,7 @@ describe Api::V1::VersionsController, type: :controller do
     request.headers['Accept'] = "application/vnd.railsapibase.v1"
     sign_in_user user
   end
+  after(:each) { ENV['V1_EXPIRATION_DATE'] = nil }
 
   it "routes correctly" do
     expect(get: "/versions/expiration").to route_to("api/v1/versions#expiration", format: :json)
@@ -25,6 +26,13 @@ describe Api::V1::VersionsController, type: :controller do
       end
 
       it { expect(response.status).to eq 200 }
+    end
+
+    context "when expiration date doesn't exist" do
+      it "returns 204 - no_content" do
+        signed_get :expiration, nil
+        expect(response.status).to eq 204
+      end
     end
   end
 end
