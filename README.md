@@ -159,8 +159,8 @@ has been chosen from the beginning as the database system for testing and develo
 The fact that [Heroku](https://www.heroku.com/)
 uses it as its default db system has been considered too.
 
-#### Last Rails and Ruby Versions
-The project uses Rails 5.0.0.beta1 (API module) and Ruby 2.3.0
+#### Latest Rails and Ruby Versions
+The project uses Rails 5.0.0.beta2 (API module) and Ruby 2.3.0
 and intends to be kept up to date.
 
 
