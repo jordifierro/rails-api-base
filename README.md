@@ -100,6 +100,7 @@ Its unique purpose is to be a guide of how to add new code,
 so it can be deleted when it's useless.
 
 #### Concerns and ApiController Pattern
+[![Code Climate](https://codeclimate.com/github/jordifierro/rails-api-base/badges/gpa.svg)](https://codeclimate.com/github/jordifierro/rails-api-base)
 
 To structure the global controller features of the api,
 different modules have been implemented as
@@ -109,6 +110,10 @@ Those modules are included to the ApiController,
 which is the father controller of the rest of controllers.
 At the moment there are 4 modules: user and authentication, error handling,
 internationalization and version expiration.
+[Code Climate](https://codeclimate.com/) is the service used
+to check that this and all the rest of the code follows good practices
+(you must activate it for your project).
+
 
 #### Users Management and Token Authentication
 Almost every api requires users, sessions and authentications,
@@ -147,10 +152,19 @@ The secret api key must be sent at `headers['Authorization']`
 (it will be used later to send the auth token).
 
 #### Rspec Testing
+[![Test Coverage](https://codeclimate.com/github/jordifierro/rails-api-base/badges/coverage.svg)](https://codeclimate.com/github/jordifierro/rails-api-base/coverage)
+[![Build Status](https://travis-ci.org/jordifierro/rails-api-base.svg?branch=master)](https://travis-ci.org/jordifierro/rails-api-base)
+
 That base project has been developed using TDD process
 and all code is tested using Rspec, following best practices guidelines defined at
 [betterspecs.org](http://betterspecs.org/).
 It's important to keep it that way.
+[Code Climate](https://codeclimate.com/) is used to check
+that the tests cover all the code cases.
+[Travis-CI](https://travis-ci.org/) is a continous integration system
+that runs the tests every time a push is made.
+If you want to use this services, you have to enable them at their websites.
+If you don't, simply delete the `.travis.yml` file.
 
 #### Setup scripts
 To avoid the burden of manually modify the code to prepare
@@ -164,9 +178,13 @@ has been chosen from the beginning as the database system for testing and develo
 The fact that [Heroku](https://www.heroku.com/)
 uses it as its default db system has been considered too.
 
-#### Latest Rails and Ruby Versions
+#### Latest Ruby and Gems Versions
+[![Dependency Status](https://gemnasium.com/jordifierro/rails-api-base.svg)](https://gemnasium.com/jordifierro/rails-api-base)
+
 The project uses Rails 5.0.0.beta2 (API module) and Ruby 2.3.0
-and intends to be kept up to date.
+and intends to be kept up to date using
+[Gemnasium](https://gemnasium.com) service.
+You must activate this service for your repo if you want to use it.
 
 
 #### Todo List
