@@ -13,9 +13,8 @@ module Api::V1
         user.save
         render json: user, status: :ok
       else
-        render json: { errors:
-                        [ message: I18n.t('devise.failure.not_found_in_database',
-                          { authentication_keys: 'email' })] }, status: :unprocessable_entity
+        render_errors [ message: I18n.t('devise.failure.not_found_in_database',
+                            { authentication_keys: 'email' })], :unprocessable_entity
       end
     end
 

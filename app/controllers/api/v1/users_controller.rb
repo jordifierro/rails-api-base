@@ -8,7 +8,7 @@ module Api::V1
         if user.save
           render json: user, status: :created
         else
-          render json: { errors: user.errors }, status: :unprocessable_entity
+          render_errors user.errors, :unprocessable_entity
         end
       else
         head :unauthorized

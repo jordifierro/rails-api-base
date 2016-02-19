@@ -35,7 +35,7 @@ describe Api::V1::NotesController, type: :controller do
 
       it "renders errors" do
         expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors']['not_found']).to_not be_nil
+        expect(json_response['errors'][0]['message']).to_not be_nil
       end
 
       it { expect(response.status).to eq 404 }
@@ -125,7 +125,7 @@ describe Api::V1::NotesController, type: :controller do
 
       it "renders errors" do
         expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors']['not_found']).to_not be_nil
+        expect(json_response['errors'][0]['message']).to_not be_nil
       end
 
       it { expect(response.status).to eq 404 }
@@ -148,7 +148,7 @@ describe Api::V1::NotesController, type: :controller do
 
       it "renders errors" do
         expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors']['not_found']).to_not be_nil
+        expect(json_response['errors'][0]['message']).to_not be_nil
       end
 
       it { expect(response.status).to eq 404 }

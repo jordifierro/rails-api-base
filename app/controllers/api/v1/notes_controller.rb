@@ -14,7 +14,7 @@ module Api::V1
       if note.save
         render json: note, status: :created
       else
-        render json: { errors: note.errors }, status: :unprocessable_entity
+        render_errors note.errors, :unprocessable_entity
       end
     end
 
@@ -23,7 +23,7 @@ module Api::V1
       if note.update(note_params)
         render json: note
       else
-        render json: { errors: note.errors }, status: :unprocessable_entity
+        render_errors note.errors, :unprocessable_entity
       end
     end
 

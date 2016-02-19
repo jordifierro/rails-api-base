@@ -6,9 +6,12 @@ module Api::V1::Concerns
       rescue_from ActiveRecord::RecordNotFound, :with => :not_found
     end
 
+    def render_errors(errors, status)
+      render json: { errors: errors }, status: status
+    end
+
     def not_found
-      render json: { errors: { not_found: I18n.t('errors.messages.not_found') } },
-                      status: :not_found
+      render_errors [{ message: I18n.t('errors.messages.not_found') }], :not_found
     end
   end
 end
