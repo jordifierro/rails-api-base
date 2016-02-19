@@ -3,6 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/jordifierro/rails-api-base/badges/gpa.svg)](https://codeclimate.com/github/jordifierro/rails-api-base)
 [![Test Coverage](https://codeclimate.com/github/jordifierro/rails-api-base/badges/coverage.svg)](https://codeclimate.com/github/jordifierro/rails-api-base/coverage)
 [![Build Status](https://travis-ci.org/jordifierro/rails-api-base.svg?branch=master)](https://travis-ci.org/jordifierro/rails-api-base)
+[![Dependency Status](https://gemnasium.com/jordifierro/rails-api-base.svg)](https://gemnasium.com/jordifierro/rails-api-base)
 
 ## Introduction
 
