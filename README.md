@@ -1,5 +1,7 @@
 # Rails Api Base
 
+[![Code Climate](https://codeclimate.com/github/jordifierro/rails-api-base/badges/gpa.svg)](https://codeclimate.com/github/jordifierro/rails-api-base)
+
 ## Introduction
 
 This projects aims to be:
