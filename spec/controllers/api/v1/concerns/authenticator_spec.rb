@@ -7,7 +7,9 @@ describe Api::V1::Concerns::Authenticator, type: :controller do
     end
   end
 
-  before { routes.draw { get 'fake_current_user' => 'anonymous#fake_current_user' } }
+  before do
+    routes.draw { get 'fake_current_user' => 'anonymous#fake_current_user' }
+  end
 
   context "when correctly authenticated" do
     before { signed_get :fake_current_user, nil }

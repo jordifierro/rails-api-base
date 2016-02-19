@@ -7,7 +7,8 @@ module Api::V1::Concerns
     end
 
     def set_locale
-      I18n.locale = extract_locale_from_accept_language_header || I18n.default_locale
+      I18n.locale = extract_locale_from_accept_language_header ||
+                                                            I18n.default_locale
     end
 
     private

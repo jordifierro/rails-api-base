@@ -10,7 +10,9 @@ describe Api::V1::VersionsController, type: :controller do
   after(:each) { ENV['V1_EXPIRATION_DATE'] = nil }
 
   it "routes correctly" do
-    expect(get: "/versions/expiration").to route_to("api/v1/versions#expiration", format: :json)
+    expect(get: "/versions/expiration").to route_to(
+                                                  "api/v1/versions#expiration",
+                                                  format: :json)
   end
 
   describe "GET /versions/:id #show" do
@@ -22,7 +24,7 @@ describe Api::V1::VersionsController, type: :controller do
 
       it "returns expiration message" do
         expect(json_response['message']).to eq I18n.t('version.expiration',
-                                          { expiration_date: 1.month.from_now.strftime('%x') })
+                       { expiration_date: 1.month.from_now.strftime('%x') })
       end
 
       it { expect(response.status).to eq 200 }

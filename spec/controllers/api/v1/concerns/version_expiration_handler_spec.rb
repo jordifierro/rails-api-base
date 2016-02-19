@@ -34,7 +34,8 @@ describe Api::V1::Concerns::VersionExpirationHandler, type: :controller do
     end
 
     it "returns expired message" do
-      expect(json_response['errors'][0]['message']).to eq I18n.t('version.expired')
+      expect(json_response['errors'][0]['message']).to eq I18n.t(
+                                                              'version.expired')
     end
 
     it { expect(response.status).to eq 426 }

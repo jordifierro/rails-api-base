@@ -4,8 +4,10 @@ describe Api::V1::SessionsController do
   let(:user) { create :user }
 
   it "routes correctly" do
-    expect(post: "/users/login").to route_to("api/v1/sessions#create", format: :json)
-    expect(delete: "/users/logout").to route_to("api/v1/sessions#destroy", format: :json)
+    expect(post: "/users/login").to route_to("api/v1/sessions#create",
+                                                                  format: :json)
+    expect(delete: "/users/logout").to route_to("api/v1/sessions#destroy",
+                                                                  format: :json)
   end
 
   describe "POST /users/login #create" do
@@ -41,7 +43,8 @@ describe Api::V1::SessionsController do
       it "because of password" do
         user.password = "invalid_password"
         process :create, method: :post, params: { user: user.attributes }
-        expect(json_response['errors'][0]['message']).to eq "Invalid email or password."
+        expect(json_response['errors'][0]['message']).to eq "Invalid email or "\
+                                                                    "password."
       end
 
       it "and returns 422" do
@@ -57,7 +60,8 @@ describe Api::V1::SessionsController do
       before(:each) { signed_delete :destroy, nil }
 
       it "cannot be found anymore" do
-        expect{ User.find_by!(auth_token: user.auth_token) }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { User.find_by!(auth_token: user.auth_token) }.to raise_error(
+                                                   ActiveRecord::RecordNotFound)
       end
 
       it { expect(response.status).to eq 204 }

@@ -11,7 +11,8 @@ module Api::V1::Concerns
     end
 
     def not_found
-      render_errors [{ message: I18n.t('errors.messages.not_found') }], :not_found
+      render_errors [{ message: I18n.t('errors.messages.not_found') }],
+                                                                      :not_found
     end
   end
 end

@@ -11,10 +11,14 @@ describe Api::V1::NotesController, type: :controller do
   it "routes correctly" do
     expect(get: "/notes").to route_to("api/v1/notes#index", format: :json)
     expect(post: "/notes").to route_to("api/v1/notes#create", format: :json)
-    expect(get: "/notes/1").to route_to("api/v1/notes#show", id: "1", format: :json)
-    expect(patch: "/notes/2").to route_to("api/v1/notes#update", id: "2", format: :json)
-    expect(put: "/notes/3").to route_to("api/v1/notes#update", id: "3", format: :json)
-    expect(delete: "/notes/4").to route_to("api/v1/notes#destroy", id: "4", format: :json)
+    expect(get: "/notes/1").to route_to("api/v1/notes#show",
+                                                        id: "1", format: :json)
+    expect(patch: "/notes/2").to route_to("api/v1/notes#update",
+                                                        id: "2", format: :json)
+    expect(put: "/notes/3").to route_to("api/v1/notes#update",
+                                                        id: "3", format: :json)
+    expect(delete: "/notes/4").to route_to("api/v1/notes#destroy",
+                                                        id: "4", format: :json)
   end
 
   describe "GET /notes/:id #show" do
@@ -137,7 +141,8 @@ describe Api::V1::NotesController, type: :controller do
       before(:each) { signed_delete :destroy, params: { id: note.id } }
 
       it "cannot be found anymore" do
-        expect{ Note.find(note.id) }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { Note.find(note.id) }.to raise_error(
+                                                  ActiveRecord::RecordNotFound)
       end
 
       it { expect(response.status).to eq 204 }

@@ -10,7 +10,8 @@ describe Api::V1::UsersController do
 
   it "routes correctly" do
     expect(post: "/users").to route_to("api/v1/users#create", format: :json)
-    expect(delete: "/users/1").to route_to("api/v1/users#destroy", id: "1", format: :json)
+    expect(delete: "/users/1").to route_to("api/v1/users#destroy",
+                                                        id: "1", format: :json)
   end
 
   describe "POST /users #create" do
@@ -105,7 +106,8 @@ describe Api::V1::UsersController do
       before(:each) { signed_delete :destroy, params: { id: "not_used" } }
 
       it "cannot be found anymore" do
-        expect{ User.find(user.id) }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { User.find(user.id) }.to raise_error(
+                                                  ActiveRecord::RecordNotFound)
       end
 
       it { expect(response.status).to eq 204 }

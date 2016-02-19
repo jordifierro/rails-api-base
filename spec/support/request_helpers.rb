@@ -7,7 +7,7 @@ module Requests
 
   module SignedRequestHelpers
     def current_user
-      @user ||= self.try(:user) || create(:user)
+      @user ||= try(:user) || create(:user)
     end
 
     def signed_get(action, params = {})

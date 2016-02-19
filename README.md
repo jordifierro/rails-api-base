@@ -63,7 +63,8 @@ cd your-project-name
 rspec
 ```
 
-* Once all tests are green, create a new remote repository and then execute this to reset the repo and push it:
+* Once all tests are green, create a new remote repository
+and then execute this to reset the repo and push it:
 ```
 ./bin/reset_git https://github.com/yourusername/your-project-name.git
 ```
@@ -78,7 +79,9 @@ implement the structures for some patterns and give some sample code.
 Here are the specifications:
 
 #### RESTful Api
-The app includes only the rails-api related modules, so it's thinner than a normal app but lacks some features (that can be manually added if required).
+The app includes only the rails-api related modules,
+so it's thinner than a normal app but lacks some features
+(that can be manually added if required).
 The architecture of the api follows rails and http restful good practices
 such as:
 * Usage of http methods/verbs.
@@ -156,7 +159,8 @@ The secret api key must be sent at `headers['Authorization']`
 [![Build Status](https://travis-ci.org/jordifierro/rails-api-base.svg?branch=master)](https://travis-ci.org/jordifierro/rails-api-base)
 
 That base project has been developed using TDD process
-and all code is tested using Rspec, following best practices guidelines defined at
+and all code is tested using Rspec,
+following best practices guidelines defined at
 [betterspecs.org](http://betterspecs.org/).
 It's important to keep it that way.
 [Code Climate](https://codeclimate.com/) is used to check
@@ -174,7 +178,8 @@ have been implemented. You can find them inside `bin/` folder.
 #### Postgres Database
 To avoid deployment problems,
 [Postgres](http://www.postgresql.org/) database
-has been chosen from the beginning as the database system for testing and development.
+has been chosen from the beginning
+as the database system for testing and development.
 The fact that [Heroku](https://www.heroku.com/)
 uses it as its default db system has been considered too.
 
