@@ -10,8 +10,9 @@ class User < ApplicationRecord
   has_many :notes
 
   def generate_auth_token!
-    begin
+    loop do
       self.auth_token = Devise.friendly_token
-    end while self.class.exists?(auth_token: auth_token)
+      break unless self.class.exists?(auth_token: auth_token)
+    end
   end
 end
