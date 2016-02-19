@@ -3,6 +3,7 @@
 APP_NAME="$(tr [A-Z] [a-z] <<< "$1")"
 USER_NAME="$APP_NAME"_user
 USER_PASS="$APP_NAME"_pass
-echo Postgres role created with username: \'"$USER_NAME"\' and password: \'"$USER_PASS"\'
+echo Postgres role successfully created:
+echo Username: \'"$USER_NAME"\', Password: \'"$USER_PASS"\'.
 psql -c "CREATE USER $USER_NAME WITH PASSWORD '$USER_PASS';"
 psql -c "ALTER USER $USER_NAME CREATEDB;"
