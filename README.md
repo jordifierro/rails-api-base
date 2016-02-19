@@ -1,7 +1,8 @@
 # Rails Api Base
 
 [![Code Climate](https://codeclimate.com/github/jordifierro/rails-api-base/badges/gpa.svg)](https://codeclimate.com/github/jordifierro/rails-api-base)
-[![Issue Count](https://codeclimate.com/github/jordifierro/rails-api-base/badges/issue_count.svg)](https://codeclimate.com/github/jordifierro/rails-api-base)
+[![Test Coverage](https://codeclimate.com/github/jordifierro/rails-api-base/badges/coverage.svg)](https://codeclimate.com/github/jordifierro/rails-api-base/coverage)
+[![Build Status](https://travis-ci.org/jordifierro/rails-api-base.svg?branch=master)](https://travis-ci.org/jordifierro/rails-api-base)
 
 ## Introduction
 
