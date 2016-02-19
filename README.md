@@ -169,7 +169,7 @@ and intends to be kept up to date.
 - [ ] Standardize json i/o and add a serialization library.
 - [ ] Add elements pagination.
 - [ ] Add sample privacy policy.
-- [ ] Update ruby and rails versions.
+- [x] Upgrade to ruby and rails latest versions.
 
 An Android client base application
 will be developed with the same goal as this.
