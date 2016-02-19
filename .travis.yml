@@ -1,0 +1,9 @@
+language: ruby
+rvm:
+  - 2.3.0-p0
+services:
+  - postgresql
+before_script:
+  - psql -c "CREATE USER railsapibase_user WITH PASSWORD 'railsapibase_pass';" -U postgres
+  - psql -c "ALTER USER railsapibase_user CREATEDB;" -U postgres
+  - bin/rails db:setup
