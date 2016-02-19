@@ -35,6 +35,7 @@ group :test do
   gem "rspec-rails", "~> 2.14"
   gem "factory_girl_rails"
   gem 'ffaker'
+  gem "codeclimate-test-reporter", require: nil
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
