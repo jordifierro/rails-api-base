@@ -77,7 +77,7 @@ describe User do
   describe "#generate_auth_token!" do
     it "generates a unique token" do
       @token_user = build :user
-      Devise.stub(:friendly_token).and_return("unique_token")
+      allow(Devise).to receive(:friendly_token).and_return("unique_token")
       @token_user.generate_auth_token!
       expect(@token_user.auth_token).to eq "unique_token"
     end
