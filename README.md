@@ -110,7 +110,9 @@ different modules have been implemented as
 [Concerns](http://api.rubyonrails.org/classes/ActiveSupport/Concern.html)
 and tested using fake controllers.
 Those modules are included to the ApiController,
-which is the father controller of the rest of controllers.
+which is the father controller of the rest of controllers
+(more info at
+[this blog post](http://jordifierro.com/rails-apicontroller-and-concerns)).
 At the moment there are 4 modules: user and authentication, error handling,
 internationalization and version expiration.
 [Code Climate](https://codeclimate.com/) is the service used
