@@ -31,18 +31,18 @@ module Requests
     end
 
     def sign_in_user(user)
-      set_auth_header(user)
+      authentication_user(user)
     end
 
     private
 
     def sign_request
-      return unless @request.headers["Authorization"].blank?
-      set_auth_header(current_user)
+      return unless @request.headers['Authorization'].blank?
+      authentication_user(current_user)
     end
 
-    def set_auth_header(current_user)
-      request.headers["Authorization"] = current_user.auth_token
+    def authentication_user(current_user)
+      request.headers['Authorization'] = current_user.auth_token
     end
   end
 end
