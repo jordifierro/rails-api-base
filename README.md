@@ -34,7 +34,7 @@ Specification summary:
 * Install ruby version 2.3.0 and set it with your ruby environment manager
 ([more info here](https://www.ruby-lang.org/en/documentation/installation/)).
 
-* Install Postgres and start de PostgreSQL server in the foreground
+* Install Postgres and start the PostgreSQL server in the foreground
 ([more info here](https://wiki.postgresql.org/wiki/Detailed_installation_guides)).
 
 * Clone the repository and get inside it:
@@ -75,7 +75,7 @@ That's it, you can now start developing your own app!
 
 The application itself is almost empty,
 it only aims to provide some basic modules,
-implement the structures for some patterns and give some sample code.
+implement the structures with some patterns and give sample code.
 Here are the specifications:
 
 #### RESTful Api
@@ -91,33 +91,33 @@ such as:
 #### Api Versioning
 The endpoint routes and the code structure are ready to add new api versions.
 The version is chosen via `headers['Accept']` with values like
-`application/vnd.railsapibase.v1` to use the first version, for example.
+`application/vnd.railsapibase.v1` to use the first version.
 
 #### Notes Example Code
-To fill the app with sample code, it has been developed code to manage `notes`
-(handwritten paper notes), composed by a `title` and a `content`.
+To provide the app sample code, it has been developed code to manage `notes`
+(like handwritten paper notes representation),
+composed by a `title` and a `content`.
 Thus, the app has the notes routes, controller, model and rspecs
-to handle that notes.
+to work with that notes.
 
 Its unique purpose is to be a guide of how to add new code,
-so it can be deleted when it's useless.
+so you can delete it when it's useless.
 
 #### Concerns and ApiController Pattern
 [![Code Climate](https://codeclimate.com/github/jordifierro/rails-api-base/badges/gpa.svg)](https://codeclimate.com/github/jordifierro/rails-api-base)
 
 To structure the global controller features of the api,
 different modules have been implemented as
-[Concerns](http://api.rubyonrails.org/classes/ActiveSupport/Concern.html)
+[ActiveSupport::Concern](http://api.rubyonrails.org/classes/ActiveSupport/Concern.html)
 and tested using fake controllers.
 Those modules are included to the ApiController,
 which is the father controller of the rest of controllers
-(more info at
-[this blog post](http://jordifierro.com/rails-apicontroller-and-concerns)).
-At the moment there are 4 modules: user and authentication, error handling,
+([more info](http://jordifierro.com/rails-apicontroller-and-concerns)).
+At the moment there are 4 modules: authentication, error handling,
 internationalization and version expiration.
 [Code Climate](https://codeclimate.com/) is the service used
 to check that this and all the rest of the code follows good practices
-(you must activate it for your project).
+(you have to activate it for your project to use it).
 
 
 #### Users Management and Token Authentication
@@ -126,7 +126,7 @@ so it's really useful to add this feature to our base app.
 The chosen solution is a mix that uses
 [Devise gem](https://github.com/plataformatec/devise)
 and a custom implementation to handle sessions by token.
-A token is returned when the users loggin
+A token is returned when the users login
 and it has to be set to `headers['Authorization']`
 on later requests to authenticate them.
 
@@ -147,25 +147,25 @@ There is a simple module that chooses the locale from
 to automatically return the appropriate translation.
 
 #### Secret Api Key
-In order to add some control to the api clients,
+In order to add some control over the api clients,
 there's an secret api key verification system that can be
 activated to make sure that is a valid client
 who creates the user.
 To activate this service
 just set a value to `ENV['SECRET_API_KEY']`.
 The secret api key must be sent at `headers['Authorization']`
-(it will be used later to send the auth token).
+when calling create new user method.
 
 #### Rspec Testing
 [![Test Coverage](https://codeclimate.com/github/jordifierro/rails-api-base/badges/coverage.svg)](https://codeclimate.com/github/jordifierro/rails-api-base/coverage)
 [![Build Status](https://travis-ci.org/jordifierro/rails-api-base.svg?branch=master)](https://travis-ci.org/jordifierro/rails-api-base)
 
-That base project has been developed using TDD process
+This project has been developed using TDD process
 and all code is tested using Rspec,
 following best practices guidelines defined at
 [betterspecs.org](http://betterspecs.org/).
 It's important to keep it that way.
-[Code Climate](https://codeclimate.com/) is used to check
+[Code Climate](https://codeclimate.com/) checks
 that the tests cover all the code cases.
 [Travis-CI](https://travis-ci.org/) is a continous integration system
 that runs the tests every time a push is made.
@@ -180,7 +180,7 @@ have been implemented. You can find them inside `bin/` folder.
 #### Postgres Database
 To avoid deployment problems,
 [Postgres](http://www.postgresql.org/) database
-has been chosen from the beginning
+has been setup from the beginning
 as the database system for testing and development.
 The fact that [Heroku](https://www.heroku.com/)
 uses it as its default db system has been considered too.
@@ -188,7 +188,7 @@ uses it as its default db system has been considered too.
 #### Latest Ruby and Gems Versions
 [![Dependency Status](https://gemnasium.com/jordifierro/rails-api-base.svg)](https://gemnasium.com/jordifierro/rails-api-base)
 
-The project uses Rails 5.0.0.beta2 (API module) and Ruby 2.3.0
+The project uses Rails 5.0.0.beta3 (API module) and Ruby 2.3.0
 and intends to be kept up to date using
 [Gemnasium](https://gemnasium.com) service.
 You must activate this service for your repo if you want to use it.
@@ -222,3 +222,6 @@ so all suggestions and contributions are more than welcome!
 #### Contributors
 
 Unfortunately, there are no contributors yet.
+
+______________________
+http://jordifierro.com
