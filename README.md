@@ -27,6 +27,7 @@ Specification summary:
 * Setup scripts.
 * Postgres database.
 * Last versions.
+* Ruby Style Guide.
 
 
 ## Quick start
@@ -192,6 +193,20 @@ The project uses Rails 5.0.0.beta3 (API module) and Ruby 2.3.0
 and intends to be kept up to date using
 [Gemnasium](https://gemnasium.com) service.
 You must activate this service for your repo if you want to use it.
+
+#### Follow Ruby Style Guide
+In order to increase the code elegance and readability,
+this [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide)
+has been used as reference.
+[Rubocop gem](https://github.com/bbatsov/rubocop)
+is a Ruby static code analizer based on that style guide.
+Just run:
+```
+gem install rubocop
+rubocop
+```
+Remember that `.rubocop.yml` file defines the configuration
+(remove it if not used).
 
 
 #### Todo List
