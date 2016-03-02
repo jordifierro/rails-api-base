@@ -17,7 +17,7 @@ module Api
         before { signed_get :fake_not_found, nil }
 
         it do
-          expect(json_response['errors'][0]['message']).to eq I18n.t(
+          expect(json_response['error']['message']).to eq I18n.t(
             'errors.messages.not_found')
         end
         it { expect(response.status).to eq 404 }

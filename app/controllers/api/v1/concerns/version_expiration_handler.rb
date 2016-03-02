@@ -19,9 +19,8 @@ module Api
         end
 
         def check_expiration!
-          render_errors(
-            [{ message: I18n.t('version.expired') }],
-            :upgrade_required) unless supported_version?
+          render_error(I18n.t('version.expired'),
+                       :upgrade_required) unless supported_version?
         end
 
         def supported_version?

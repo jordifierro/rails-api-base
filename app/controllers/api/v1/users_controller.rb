@@ -9,7 +9,7 @@ module Api
           if user.save
             render json: user, status: :created
           else
-            render_errors(user.errors, :unprocessable_entity)
+            render_error(user.errors.full_messages[0], :unprocessable_entity)
           end
         else
           head :unauthorized

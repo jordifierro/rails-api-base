@@ -8,13 +8,14 @@ module Api
           rescue_from ActiveRecord::RecordNotFound, with: :not_found
         end
 
-        def render_errors(errors, status)
-          render json: { errors: errors }, status: status
+        def render_error(message, status)
+          status_code = Rack::Utils::SYMBOL_TO_STATUS_CODE[status]
+          render json: { error: { status: status_code, message: message } },
+                 status: status
         end
 
         def not_found
-          render_errors([{ message: I18n.t('errors.messages.not_found') }],
-                        :not_found)
+          render_error(I18n.t('errors.messages.not_found'), :not_found)
         end
       end
     end

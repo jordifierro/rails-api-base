@@ -38,8 +38,9 @@ describe Api::V1::NotesController, type: :controller do
       before(:each) { signed_get :show, params: { id: 1 } }
 
       it 'renders errors' do
-        expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors'][0]['message']).to_not be_nil
+        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['status']).to eq 404
+        expect(json_response['error']['message']).to_not be_nil
       end
 
       it { expect(response.status).to eq 404 }
@@ -79,8 +80,9 @@ describe Api::V1::NotesController, type: :controller do
       end
 
       it 'renders errors' do
-        expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors']['title']).to_not be_nil
+        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['status']).to eq 422
+        expect(json_response['error']['message']).to_not be_nil
       end
 
       it { expect(response.status).to eq 422 }
@@ -115,8 +117,9 @@ describe Api::V1::NotesController, type: :controller do
       end
 
       it 'renders errors' do
-        expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors']['title']).to_not be_nil
+        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['status']).to eq 422
+        expect(json_response['error']['message']).to_not be_nil
       end
 
       it { expect(response.status).to eq 422 }
@@ -128,8 +131,9 @@ describe Api::V1::NotesController, type: :controller do
       end
 
       it 'renders errors' do
-        expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors'][0]['message']).to_not be_nil
+        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['status']).to eq 404
+        expect(json_response['error']['message']).to_not be_nil
       end
 
       it { expect(response.status).to eq 404 }
@@ -153,8 +157,9 @@ describe Api::V1::NotesController, type: :controller do
       before(:each) { signed_delete :destroy, params: { id: 1 } }
 
       it 'renders errors' do
-        expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors'][0]['message']).to_not be_nil
+        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['status']).to eq 404
+        expect(json_response['error']['message']).to_not be_nil
       end
 
       it { expect(response.status).to eq 404 }

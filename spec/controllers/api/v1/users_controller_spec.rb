@@ -49,38 +49,43 @@ describe Api::V1::UsersController do
       it 'without email attr' do
         user_attr[:email] = nil
         post :create, params: { user: user_attr }
-        expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors']['email']).to_not be_nil
+        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['status']).to eq 422
+        expect(json_response['error']['message']).to_not be_nil
       end
 
       it 'with invalid email' do
         user_attr[:email] = 'invalid@email'
         post :create, params: { user: user_attr }
-        expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors']['email']).to_not be_nil
+        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['status']).to eq 422
+        expect(json_response['error']['message']).to_not be_nil
       end
 
       it 'with repeated email' do
         post :create, params: { user: user_attr }
         post :create, params: { user: user_attr }
-        expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors']['email']).to_not be_nil
+        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['status']).to eq 422
+        expect(json_response['error']['message']).to_not be_nil
       end
 
       it 'with short password' do
         user_attr[:password] = '1234'
         user_attr[:password_confirmation] = '1234'
         post :create, params: { user: user_attr }
-        expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors']['password']).to_not be_nil
+        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['status']).to eq 422
+        expect(json_response['error']['message']).to_not be_nil
       end
 
       it 'with wrong password confirmation' do
         user_attr[:password] = 'one_password'
         user_attr[:password_confirmation] = 'another_password'
         post :create, params: { user: user_attr }
-        expect(json_response['errors']).to_not be_nil
-        expect(json_response['errors']['password_confirmation']).to_not be_nil
+        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['status']).to eq 422
+        expect(json_response['error']['message']).to_not be_nil
       end
 
       it 'and returns 422' do

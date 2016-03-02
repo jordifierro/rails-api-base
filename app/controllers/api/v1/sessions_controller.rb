@@ -9,9 +9,9 @@ module Api
           login_user(user)
           render json: user, status: :ok
         else
-          render_errors([message: I18n.t(
-            'devise.failure.not_found_in_database',
-            authentication_keys: 'email')], :unprocessable_entity)
+          render_error(I18n.t('devise.failure.not_found_in_database',
+                              authentication_keys: 'email'),
+                       :unprocessable_entity)
         end
       end
 

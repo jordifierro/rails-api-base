@@ -36,7 +36,7 @@ module Api
         end
 
         it 'returns expired message' do
-          expect(json_response['errors'][0]['message']).to eq I18n.t(
+          expect(json_response['error']['message']).to eq I18n.t(
             'version.expired')
         end
 
