@@ -108,7 +108,12 @@ describe Api::V1::UsersController do
 
   describe 'DELETE /users/:id #destroy' do
     context 'when is deleted' do
-      before(:each) { signed_delete :destroy, params: { id: 'not_used' } }
+      before(:each) do
+        note = create :note
+        note.user_id = user.id
+        note.save
+        signed_delete :destroy, params: { id: 'not_used' }
+      end
 
       it 'cannot be found anymore' do
         expect do

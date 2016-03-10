@@ -17,6 +17,7 @@ module Api
       end
 
       def destroy
+        current_user.notes.destroy_all
         current_user.destroy
         head :no_content
       end
