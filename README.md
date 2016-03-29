@@ -26,8 +26,11 @@ Specification summary:
 * Rspec testing.
 * Setup scripts.
 * Postgres database.
-* Last versions.
+* Versions up-to-date.
 * Ruby Style Guide.
+
+Here is its counterpart client mobile app that consumes data from this api ->
+[android-base](https://github.com/jordifierro/android-base)
 
 
 ## Quick start
@@ -143,8 +146,10 @@ simply set a date formatted to string to `ENV['V1_EXPIRATION_DATE']`.
 #### Internationalization
 The app is translated to English (default language)
 and Spanish (just as translation example).
-There is a simple module that chooses the locale from
-`request.env['HTTP_ACCEPT_LANGUAGE']` and set it to the system
+There is a simple module that takes the locale from
+`request.env['HTTP_ACCEPT_LANGUAGE']`
+(that can be set throught the `Accept-Languange` header)
+and sets it to the system
 to automatically return the appropriate translation.
 
 #### Secret Api Key
@@ -216,11 +221,9 @@ Remember that `.rubocop.yml` file defines the configuration
 - [ ] Add sample privacy policy.
 - [x] Upgrade to ruby and rails latest versions.
 
-An Android client base application
-will be developed with the same goal as this.
-It will consume data from this one.
-A sample version of both will be online
-as soon as they are finished...
+
+Here is its counterpart client mobile app that consumes data from this api ->
+[android-base](https://github.com/jordifierro/android-base)
 
 
 ## Contribute
