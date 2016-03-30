@@ -23,7 +23,7 @@ describe User do
     it 'auth_token is unique' do
       second_user = create(:user)
       second_user.auth_token = user.auth_token
-      expect { second_user.save! }.to raise_error(ActiveRecord::RecordInvalid)
+      expect { second_user.save! }.to raise_error(ActiveRecord::RecordNotUnique)
       second_user.auth_token = 'different_token'
       second_user.save
       expect(second_user).to be_valid
@@ -84,14 +84,14 @@ describe User do
   describe '#generate_auth_token!' do
     it 'generates a unique token' do
       @token_user = build :user
-      allow(Devise).to receive(:friendly_token).and_return('unique_token')
-      @token_user.generate_auth_token!
+      allow(SecureRandom).to receive(:base58).and_return('unique_token')
+      @token_user.regenerate_auth_token
       expect(@token_user.auth_token).to eq 'unique_token'
     end
 
     it 'generates different token' do
       current_token = user.auth_token
-      user.generate_auth_token!
+      user.regenerate_auth_token
       expect(user.auth_token).not_to eq current_token
     end
   end

@@ -16,8 +16,7 @@ module Api
       end
 
       def destroy
-        current_user.generate_auth_token!
-        current_user.save
+        current_user.regenerate_auth_token
         head :no_content
       end
 
@@ -31,8 +30,7 @@ module Api
 
       def login_user(user)
         sign_in(:user, [{ store: false }, user])
-        user.generate_auth_token!
-        user.save
+        user.regenerate_auth_token
       end
     end
   end
