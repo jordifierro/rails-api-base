@@ -116,9 +116,10 @@ different modules have been implemented as
 and tested using fake controllers.
 Those modules are included to the ApiController,
 which is the father controller of the rest of controllers
-([more info](http://jordifierro.com/rails-apicontroller-and-concerns)).
+([check this post](http://jordifierro.com/rails-apicontroller-and-concerns)).
 At the moment there are 4 modules: authentication, error handling,
-internationalization and version expiration.
+internationalization and version expiration
+([check this other](http://jordifierro.com/rails-api-modules)).
 [Code Climate](https://codeclimate.com/) is the service used
 to check that this and all the rest of the code follows good practices
 (you have to activate it for your project to use it).
@@ -133,6 +134,8 @@ and a custom implementation to handle sessions by token.
 A token is returned when the users login
 and it has to be set to `headers['Authorization']`
 on later requests to authenticate them.
+More info about that on
+([this post](http://jordifierro.com/rails-api-modules#authenticator))
 
 #### Version Expiration System
 To check if a version can still be used,
@@ -142,6 +145,8 @@ and there's also an endpoint to check the expiration date from the client
 (e.g.: to warn the user to update the app).
 If you want to set expiration date to a concrete version,
 simply set a date formatted to string to `ENV['V1_EXPIRATION_DATE']`.
+More info about that on
+([this post](http://jordifierro.com/rails-api-modules#version-expiration-handler))
 
 #### Internationalization
 The app is translated to English (default language)
@@ -151,6 +156,8 @@ There is a simple module that takes the locale from
 (that can be set throught the `Accept-Languange` header)
 and sets it to the system
 to automatically return the appropriate translation.
+More info about that on
+([this post](http://jordifierro.com/rails-api-modules#internationalizator))
 
 #### Secret Api Key
 In order to add some control over the api clients,
