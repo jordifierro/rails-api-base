@@ -52,6 +52,11 @@ cd your-project-name
 ./bin/rename_project YourProjectName
 ```
 
+* Remove all 'note' related code (optional):
+```
+./bin/remove_notes
+```
+
 * Create a postgres role to let rails manage the db:
 ```
 ./bin/create_psql_user yourprojectname
