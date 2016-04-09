@@ -1,11 +1,6 @@
 #!/usr/bin/env sh
 
-rm app/controllers/api/v1/notes_controller.rb
-rm app/models/note.rb
-rm db/migrate/20160122193254_create_notes.rb
-rm spec/controllers/api/v1/notes_controller_spec.rb
-rm spec/factories/notes.rb
-rm spec/models/note_spec.rb
+find . -name "*note*" -type f -delete
 
 sed -i.bak '/notes/d' ./config/routes.rb; rm config/routes.rb.bak
 sed -i.bak '/notes/d' ./app/models/user.rb; rm app/models/user.rb.bak

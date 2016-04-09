@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+rm bin/reset_git
+
 rm -rf .git/
 git init
 git add .

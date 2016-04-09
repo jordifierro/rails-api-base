@@ -7,3 +7,5 @@ echo Postgres role successfully created:
 echo Username: \'"$USER_NAME"\', Password: \'"$USER_PASS"\'.
 psql -c "CREATE USER $USER_NAME WITH PASSWORD '$USER_PASS';"
 psql -c "ALTER USER $USER_NAME CREATEDB;"
+
+rm bin/create_psql_user
