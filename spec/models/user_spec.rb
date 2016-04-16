@@ -8,6 +8,9 @@ describe User do
     it { expect(user).to respond_to(:password) }
     it { expect(user).to respond_to(:password_confirmation) }
     it { expect(user).to respond_to(:auth_token) }
+    it { expect(user).to respond_to(:conf_token) }
+    it { expect(user).to respond_to(:conf_sent_at) }
+    it { expect(user).to respond_to(:conf_at) }
 
     it { expect(user).to be_valid }
   end
@@ -21,12 +24,25 @@ describe User do
     end
 
     it 'auth_token is unique' do
-      second_user = create(:user)
-      second_user.auth_token = user.auth_token
-      expect { second_user.save! }.to raise_error(ActiveRecord::RecordNotUnique)
-      second_user.auth_token = 'different_token'
-      second_user.save
-      expect(second_user).to be_valid
+      another_user = create(:user)
+      another_user.auth_token = user.auth_token
+      expect do
+        another_user.save!
+      end.to raise_error(ActiveRecord::RecordNotUnique)
+      another_user.auth_token = 'different_token'
+      another_user.save
+      expect(another_user).to be_valid
+    end
+
+    it 'conf_token is unique' do
+      another_user = create(:user)
+      another_user.conf_token = user.conf_token
+      expect do
+        another_user.save!
+      end.to raise_error(ActiveRecord::RecordNotUnique)
+      another_user.conf_token = 'different_token'
+      another_user.save
+      expect(another_user).to be_valid
     end
 
     it 'email is unique' do
@@ -78,21 +94,6 @@ describe User do
 
       expect(create(:user, password: 'same_password',
                            password_confirmation: 'same_password')).to be_valid
-    end
-  end
-
-  describe '#generate_auth_token!' do
-    it 'generates a unique token' do
-      @token_user = build :user
-      allow(SecureRandom).to receive(:base58).and_return('unique_token')
-      @token_user.regenerate_auth_token
-      expect(@token_user.auth_token).to eq 'unique_token'
-    end
-
-    it 'generates different token' do
-      current_token = user.auth_token
-      user.regenerate_auth_token
-      expect(user.auth_token).not_to eq current_token
     end
   end
 end
