@@ -29,6 +29,11 @@ describe UsersController do
         user.reload
         expect(user.conf_at).to_not be_nil
       end
+
+      it 'sets conf_token to nil' do
+        user.reload
+        expect(user.conf_token).to be_nil
+      end
     end
 
     context 'when token is invalid' do
