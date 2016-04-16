@@ -23,3 +23,8 @@ es:
   version:
     expiration: "Tu versión actual expira el %{expiration_date}, por favor actualiza a una versión más nueva."
     expired: "Tu versión actual ha expirado, por favor actualiza a una versión más nueva."
+  email_confirmation:
+    subject: "Confirmar correo"
+    ask: "Por favor, confirme su email clicando aquí: #{confirm_url}."
+    success: "Tu dirección de correo ha sido confirmada correctamente."
+    error: "Clave de confirmación inválida!"

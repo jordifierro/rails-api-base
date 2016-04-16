@@ -8,14 +8,16 @@ Rails.application.routes.draw do
   # mount ActionCable.server => '/cable'
 
   # Api definition
-    scope module: :api, defaults: { format: :json }  do
-      scope module: :v1, constraints: ApiConstraints.new(version: 1,
-                                                         default: true) do
-        post   'users/login'  => 'sessions#create'
-        delete 'users/logout' => 'sessions#destroy'
-        resources :users, only: [:create, :destroy]
-        resources :notes
-        get 'versions/expiration' => 'versions#expiration'
-      end
+  scope module: :api, defaults: { format: :json }  do
+    scope module: :v1, constraints: ApiConstraints.new(version: 1,
+                                                       default: true) do
+      post   'users/login'  => 'sessions#create'
+      delete 'users/logout' => 'sessions#destroy'
+      resources :users, only: [:create, :destroy]
+      resources :notes
+      get 'versions/expiration' => 'versions#expiration'
     end
+  end
+
+  get 'users/confirm/:token', to: 'users#confirm', as: 'users_confirm'
 end
