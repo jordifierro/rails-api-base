@@ -36,6 +36,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'codeclimate-test-reporter', require: nil
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
