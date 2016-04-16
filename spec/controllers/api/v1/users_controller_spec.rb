@@ -32,12 +32,13 @@ describe Api::V1::UsersController do
       end
 
       it 'sends confirmation email' do
-        email = ActionMailer::Base.deliveries.last
-        expect(email.to[0]).to eq json_response['email']
-        expect(email.subject).to eq I18n.t('email_confirmation.subject')
-        expect(email.encoded).to include(
+        created_user = User.find_by_email(user_attr[:email])
+        mail = ActionMailer::Base.deliveries.last
+        expect(mail.to[0]).to eq created_user.email
+        expect(mail.subject).to eq I18n.t('email_confirmation.subject')
+        expect(mail.body.encoded).to match(
           I18n.t('email_confirmation.ask',
-                 confirm_url: users_confirm_url(user)))
+                 confirm_url: users_confirm_url(created_user.conf_token)))
       end
 
       it 'creates the user' do

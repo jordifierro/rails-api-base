@@ -25,6 +25,6 @@ en:
     expired: "Your current version has expired, please update to the latest one."
   email_confirmation:
     subject: "Email confirmation"
-    ask: "Please, confirm your email by clicking here: #{confirm_url}."
+    ask: "Please, confirm your email by clicking here: %{confirm_url}."
     success: "Your email address has been successfully confirmed."
     error: "Invalid confirmation token!"
