@@ -7,7 +7,6 @@ module Api
         if correct_secret_api_key?
           user = User.new(user_params)
           if user.save
-            ask_email_confirmation(user)
             render json: user, status: :created
           else
             render_error(user.errors.full_messages[0], :unprocessable_entity)
@@ -34,13 +33,6 @@ module Api
           head :unauthorized
           false
         end
-      end
-
-      def ask_email_confirmation(user)
-        user.regenerate_conf_token
-        user.conf_sent_at = DateTime.current
-        user.save
-        UserMailer.ask_email_confirmation(user).deliver
       end
     end
   end
