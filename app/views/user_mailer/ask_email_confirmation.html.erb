@@ -1,1 +1,4 @@
-<p><%= I18n.t('email_confirmation.ask', confirm_url: @url) %></p>
+<p>
+  <%= I18n.t('email_confirmation.ask') %>
+  <a href="<%= @url %>"><%= @url %></a>.
+</p>

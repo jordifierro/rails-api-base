@@ -36,9 +36,9 @@ describe Api::V1::UsersController do
         mail = ActionMailer::Base.deliveries.last
         expect(mail.to[0]).to eq created_user.email
         expect(mail.subject).to eq I18n.t('email_confirmation.subject')
+        expect(mail.body.encoded).to match(I18n.t('email_confirmation.ask'))
         expect(mail.body.encoded).to match(
-          I18n.t('email_confirmation.ask',
-                 confirm_url: users_confirm_url(created_user.conf_token)))
+          users_confirm_url(created_user.conf_token))
       end
 
       it 'creates the user' do
