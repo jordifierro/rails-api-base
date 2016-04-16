@@ -10,9 +10,11 @@ class User < ApplicationRecord
 
   after_create :ask_email_confirmation
 
+  private
+
   def ask_email_confirmation
     self.conf_sent_at = DateTime.current
-    self.save
+    save
     UserMailer.ask_email_confirmation(self).deliver
   end
 end

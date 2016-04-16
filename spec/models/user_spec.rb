@@ -96,4 +96,21 @@ describe User do
                            password_confirmation: 'same_password')).to be_valid
     end
   end
+
+  describe 'after create' do
+    it { expect(user.conf_token).to_not be_nil }
+
+    it 'should set conf_sent_at' do
+      new_user = build :user
+      new_user.save
+      expect(new_user.conf_sent_at.utc.to_s).to eq DateTime.current.utc.to_s
+    end
+
+    it 'should call user_mailer' do
+      new_user = build :user
+      expect(UserMailer).to receive(:ask_email_confirmation).with(
+        new_user).and_return(double('mailer', deliver: true))
+      new_user.save
+    end
+  end
 end
