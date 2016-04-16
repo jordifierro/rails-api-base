@@ -15,14 +15,33 @@ describe Api::V1::UsersController do
   end
 
   describe 'POST /users #create' do
-    context 'when is created without api_key' do
-      before(:each) { post :create, params: { user: user_attr } }
+    context 'when is created successfully' do
+      before(:each) do
+        ActionMailer::Base.deliveries = []
+        post :create, params: { user: user_attr }
+      end
 
       it 'renders resource created' do
         expect(json_response['id']).to_not be_nil
         expect(json_response['email']).to eq user_attr[:email]
         expect(json_response['password']).to be_nil
         expect(json_response['auth_token']).to_not be_nil
+        expect(json_response['conf_token']).to_not be_nil
+        expect(json_response['conf_sent_at']).to_not be_nil
+        expect(json_response['conf_at']).to be_nil
+      end
+
+      it 'sends confirmation email' do
+        email = ActionMailer::Base.deliveries.last
+        expect(email.to[0]).to eq json_response['email']
+        expect(email.subject).to eq I18n.t('email_confirmation.subject')
+        expect(email.encoded).to include(
+          I18n.t('email_confirmation.ask',
+                 confirm_url: users_confirm_url(user)))
+      end
+
+      it 'creates the user' do
+        expect(User.find(json_response['id'])).to_not be_nil
       end
 
       it { expect(response.status).to eq 201 }
@@ -35,17 +54,10 @@ describe Api::V1::UsersController do
         post :create, params: { user: user_attr }
       end
 
-      it 'renders resource created' do
-        expect(json_response['id']).to_not be_nil
-        expect(json_response['email']).to eq user_attr[:email]
-        expect(json_response['password']).to be_nil
-        expect(json_response['auth_token']).to_not be_nil
-      end
-
       it { expect(response.status).to eq 201 }
     end
 
-    context 'is not created' do
+    context 'when is not created' do
       it 'without email attr' do
         user_attr[:email] = nil
         post :create, params: { user: user_attr }
@@ -88,10 +100,25 @@ describe Api::V1::UsersController do
         expect(json_response['error']['message']).to_not be_nil
       end
 
-      it 'and returns 422' do
+      it 'returns 422' do
         user_attr[:email] = nil
         post :create, params: { user: user_attr }
         expect(response.status).to eq 422
+      end
+
+      it 'doesn\'t send email' do
+        ActionMailer::Base.deliveries = []
+        user_attr[:email] = nil
+        post :create, params: { user: user_attr }
+        expect(ActionMailer::Base.deliveries.empty?).to be true
+      end
+
+      it 'doesn\'t create user' do
+        user_attr[:email] = nil
+        post :create, params: { user: user_attr }
+        expect do
+          User.find(user_attr[:id])
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
