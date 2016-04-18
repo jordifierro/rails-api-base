@@ -133,9 +133,8 @@ to check that this and all the rest of the code follows good practices
 #### Users Management and Token Authentication
 Almost every api requires users, sessions and authentications,
 so it's really useful to add this feature to our base app.
-The chosen solution is a mix that uses
-[Devise gem](https://github.com/plataformatec/devise)
-and a custom implementation to handle sessions by token.
+The chosen solution uses `has_secure_token`
+with a custom implementation to handle sessions by token.
 A token is returned when the users login
 and it has to be set to `headers['Authorization']`
 on later requests to authenticate them.
