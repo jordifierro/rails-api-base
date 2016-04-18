@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   end
 
   get 'users/confirm/:token', to: 'users#confirm', as: 'users_confirm'
+  get 'privacy', to: 'pages#privacy'
 end

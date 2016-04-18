@@ -25,6 +25,9 @@ es:
     expired: "Tu versión actual ha expirado, por favor actualiza a una versión más nueva."
   email_confirmation:
     subject: "Confirmar correo"
-    ask: "Por favor, confirme su email clicando aquí:"
+    ask: "Por favor, confirma tu email clicando aquí:"
     success: "Tu dirección de correo ha sido confirmada correctamente."
     error: "Clave de confirmación inválida!"
+  privacy:
+    title_1: "Política de privacidad"
+    content_1: "Coloca aquí tu política de privacidad."
