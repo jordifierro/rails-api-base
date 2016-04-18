@@ -1,4 +1,4 @@
-class UsersController < ActionController::Base
+class UsersController < ViewController
   def confirm
     user = User.find_by_conf_token(params[:token])
     if user
