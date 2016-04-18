@@ -31,3 +31,6 @@ en:
   privacy:
     title_1: "Privacy policy"
     content_1: "Place here your privacy policy."
+  terms:
+    title_1: "Terms and conditions of service"
+    content_1: "Place here your terms and conditions."

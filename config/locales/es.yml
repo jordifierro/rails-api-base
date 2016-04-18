@@ -31,3 +31,6 @@ es:
   privacy:
     title_1: "Política de privacidad"
     content_1: "Coloca aquí tu política de privacidad."
+  terms:
+    title_1: "Terminos y condiciones de uso"
+    content_1: "Coloca aquí tus terminos y condiciones."
