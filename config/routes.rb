@@ -11,15 +11,18 @@ Rails.application.routes.draw do
   scope module: :api, defaults: { format: :json }  do
     scope module: :v1, constraints: ApiConstraints.new(version: 1,
                                                        default: true) do
-      post   'users/login'  => 'sessions#create'
-      delete 'users/logout' => 'sessions#destroy'
+      get    'versions/expiration'  => 'versions#expiration'
+      post   'users/login'          => 'sessions#create'
+      delete 'users/logout'         => 'sessions#destroy'
+      post   'users/reset_password' => 'users#reset_password'
       resources :users, only: [:create, :destroy]
       resources :notes
-      get 'versions/expiration' => 'versions#expiration'
     end
   end
 
-  get 'users/confirm/:token', to: 'users#confirm', as: 'users_confirm'
-  get 'privacy', to: 'pages#privacy'
-  get 'terms', to: 'pages#terms'
+  get 'users/confirm/:token',        to: 'users#confirm', as: 'users_confirm'
+  get 'users/confirm_reset/:token',  to: 'users#confirm_reset',
+                                     as: 'users_confirm_reset'
+  get 'privacy',                     to: 'pages#privacy'
+  get 'terms',                       to: 'pages#terms'
 end

@@ -33,8 +33,11 @@ ActiveRecord::Schema.define(version: 20160122193254) do
     t.string   "confirmation_token"
     t.datetime "confirmation_sent_at"
     t.datetime "confirmed_at"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.string   "reset_password"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree

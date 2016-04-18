@@ -10,6 +10,10 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.datetime  :confirmation_sent_at
       t.datetime  :confirmed_at
 
+      t.string    :reset_password
+      t.string    :reset_password_token
+      t.datetime  :reset_password_sent_at
+
       t.timestamps
     end
 

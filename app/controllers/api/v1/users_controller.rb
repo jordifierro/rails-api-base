@@ -1,7 +1,7 @@
 module Api
   module V1
     class UsersController < ApiController
-      skip_before_action :auth_with_token!, only: [:create]
+      skip_before_action :auth_with_token!, only: [:create, :reset_password]
 
       def create
         if correct_secret_api_key?
@@ -20,10 +20,23 @@ module Api
         head :no_content
       end
 
+      def reset_password
+        user = User.find_by_email(user_params[:email])
+        if passwords_match
+          user.ask_reset_password(user_params[:new_password]) if user
+          render json: { message: I18n.t('reset_password.sent') },
+                 status: :accepted
+        else
+          render_error(I18n.t('reset_password.passwords_notmatch'),
+                       :unprocessable_entity)
+        end
+      end
+
       private
 
       def user_params
-        params.require(:user).permit(:email, :password, :password_confirmation)
+        params.require(:user).permit(:email, :password, :password_confirmation,
+                                     :new_password, :new_password_confirmation)
       end
 
       def correct_secret_api_key?
@@ -32,6 +45,13 @@ module Api
         else
           head :unauthorized
           false
+        end
+      end
+
+      def passwords_match
+        if !user_params.key?(:new_password_confirmation) ||
+           user_params[:new_password] == user_params[:new_password_confirmation]
+          true
         end
       end
     end

@@ -30,6 +30,13 @@ es:
     ask: "Por favor, confirma tu email clicando aquí:"
     success: "Tu dirección de correo ha sido confirmada correctamente."
     error: "Clave de confirmación inválida!"
+  reset_password:
+    passords_notmatch: "Confirmación de contraseña incorrecta"
+    subject: "Confirmar cambio de contraseña"
+    sent: "Comprueba tu correo para confirmar la nueva contraseña"
+    ask: "Por favor, confirma que has pedido un cambio de contraseña clicando aquí:"
+    success: "Tu contraseña ha sido actualizada correctamente."
+    error: "Clave de cambio de contraseña incorrecto!"
   privacy:
     title_1: "Política de privacidad"
     content_1: "Coloca aquí tu política de privacidad."
