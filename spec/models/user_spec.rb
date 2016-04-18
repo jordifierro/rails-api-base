@@ -8,9 +8,9 @@ describe User do
     it { expect(user).to respond_to(:password) }
     it { expect(user).to respond_to(:password_confirmation) }
     it { expect(user).to respond_to(:auth_token) }
-    it { expect(user).to respond_to(:conf_token) }
-    it { expect(user).to respond_to(:conf_sent_at) }
-    it { expect(user).to respond_to(:conf_at) }
+    it { expect(user).to respond_to(:confirmation_token) }
+    it { expect(user).to respond_to(:confirmation_sent_at) }
+    it { expect(user).to respond_to(:confirmed_at) }
 
     it { expect(user).to be_valid }
   end
@@ -34,13 +34,13 @@ describe User do
       expect(another_user).to be_valid
     end
 
-    it 'conf_token is unique' do
+    it 'confirmation_token is unique' do
       another_user = create(:user)
-      another_user.conf_token = user.conf_token
+      another_user.confirmation_token = user.confirmation_token
       expect do
         another_user.save!
       end.to raise_error(ActiveRecord::RecordNotUnique)
-      another_user.conf_token = 'different_token'
+      another_user.confirmation_token = 'different_token'
       another_user.save
       expect(another_user).to be_valid
     end
@@ -54,8 +54,7 @@ describe User do
     end
 
     it 'email format' do
-      %w(test_mail tre@ any@any 123@l.
-         email@.br @example.com mail.test).each do |email|
+      %w(test_mail mail.test).each do |email|
         expect do
           create(:user, email: email)
         end.to raise_error(ActiveRecord::RecordInvalid)
@@ -98,12 +97,13 @@ describe User do
   end
 
   describe 'after create' do
-    it { expect(user.conf_token).to_not be_nil }
+    it { expect(user.confirmation_token).to_not be_nil }
 
-    it 'should set conf_sent_at' do
+    it 'should set confirmation_sent_at' do
       new_user = build :user
       new_user.save
-      expect(new_user.conf_sent_at.utc.to_s).to eq DateTime.current.utc.to_s
+      csa = new_user.confirmation_sent_at.utc.to_s
+      expect(csa).to eq DateTime.current.utc.to_s
     end
 
     it 'should call user_mailer' do

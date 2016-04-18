@@ -43,8 +43,8 @@ describe Api::V1::SessionsController do
       it 'because of password' do
         user.password = 'invalid_password'
         process :create, method: :post, params: { user: user.attributes }
-        expect(json_response['error']['message']).to eq 'Invalid email or '\
-                                                                'password.'
+        expect(json_response['error']['message']).to eq I18n.t(
+          'authentication.error', authentication_keys: 'email')
       end
 
       it 'and returns 422' do

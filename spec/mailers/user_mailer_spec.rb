@@ -23,14 +23,14 @@ describe UserMailer do
       expect(mail.text_part.body.encoded).to match(
         I18n.t('email_confirmation.ask'))
       expect(mail.text_part.body.encoded).to match(
-        users_confirm_url(user.conf_token))
+        users_confirm_url(user.confirmation_token))
     end
 
     it 'renders email_confirmation.ask, url and on html' do
       expect(mail.html_part.body.encoded).to match(
         I18n.t('email_confirmation.ask'))
       expect(mail.html_part.body.encoded).to match(
-        '<a href="' + users_confirm_url(user.conf_token))
+        '<a href="' + users_confirm_url(user.confirmation_token))
     end
 
     it 'generates a multipart message (plain text and html)' do

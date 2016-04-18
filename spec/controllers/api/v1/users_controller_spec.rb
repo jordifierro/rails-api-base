@@ -25,10 +25,12 @@ describe Api::V1::UsersController do
         expect(json_response['id']).to_not be_nil
         expect(json_response['email']).to eq user_attr[:email]
         expect(json_response['password']).to be_nil
+        expect(json_response['password_confirmation']).to be_nil
+        expect(json_response['password_digest']).to be_nil
         expect(json_response['auth_token']).to_not be_nil
-        expect(json_response['conf_token']).to_not be_nil
-        expect(json_response['conf_sent_at']).to_not be_nil
-        expect(json_response['conf_at']).to be_nil
+        expect(json_response['confirmation_token']).to_not be_nil
+        expect(json_response['confirmation_sent_at']).to_not be_nil
+        expect(json_response['confirmation_at']).to be_nil
       end
 
       it 'sends confirmation email' do
@@ -38,7 +40,7 @@ describe Api::V1::UsersController do
         expect(mail.subject).to eq I18n.t('email_confirmation.subject')
         expect(mail.body.encoded).to match(I18n.t('email_confirmation.ask'))
         expect(mail.body.encoded).to match(
-          users_confirm_url(created_user.conf_token))
+          users_confirm_url(created_user.confirmation_token))
       end
 
       it 'creates the user' do
@@ -68,7 +70,7 @@ describe Api::V1::UsersController do
       end
 
       it 'with invalid email' do
-        user_attr[:email] = 'invalid@email'
+        user_attr[:email] = 'invalid_email'
         post :create, params: { user: user_attr }
         expect(json_response['error']).to_not be_nil
         expect(json_response['error']['status']).to eq 422
@@ -122,16 +124,16 @@ describe Api::V1::UsersController do
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
-  end
 
-  context 'is not created because wrong api_key' do
-    before(:each) do
-      ENV['SECRET_API_KEY'] = 'SECRET_API_KEY'
-      request.headers['Authorization'] = 'WRONG_api_key'
-      post :create, params: { user: user_attr }
+    context 'is not created because wrong api_key' do
+      before(:each) do
+        ENV['SECRET_API_KEY'] = 'SECRET_API_KEY'
+        request.headers['Authorization'] = 'WRONG_api_key'
+        post :create, params: { user: user_attr }
+      end
+
+      it { expect(response.status).to eq 401 }
     end
-
-    it { expect(response.status).to eq 401 }
   end
 
   describe 'DELETE /users/:id #destroy' do

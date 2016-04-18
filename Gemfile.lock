@@ -45,13 +45,6 @@ GEM
     codeclimate-test-reporter (0.5.0)
       simplecov (>= 0.7.1, < 1.0.0)
     concurrent-ruby (1.0.1)
-    devise (3.5.6)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      responders
-      thread_safe (~> 0.1)
-      warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
     erubis (2.7.0)
@@ -78,7 +71,6 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
-    orm_adapter (0.5.0)
     pg (0.18.4)
     puma (3.4.0)
     rack (2.0.0.alpha)
@@ -116,8 +108,6 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (11.1.2)
-    responders (2.1.2)
-      railties (>= 4.2.0, < 5.1)
     rspec-core (3.5.0.beta3)
       rspec-support (= 3.5.0.beta3)
     rspec-expectations (3.5.0.beta3)
@@ -152,8 +142,6 @@ GEM
     thread_safe (0.3.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    warden (1.2.6)
-      rack (>= 1.0)
     websocket-driver (0.6.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -162,9 +150,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt
   byebug
   codeclimate-test-reporter
-  devise
   factory_girl_rails
   ffaker
   pg
