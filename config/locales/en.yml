@@ -42,3 +42,6 @@ en:
   terms:
     title_1: "Terms and conditions of service"
     content_1: "Place here your terms and conditions."
+  errors:
+    messages:
+      not_found: "Not found."

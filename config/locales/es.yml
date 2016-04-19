@@ -42,3 +42,6 @@ es:
   terms:
     title_1: "Terminos y condiciones de uso"
     content_1: "Coloca aquí tus terminos y condiciones."
+  errors:
+    messages:
+      not_found: "No se ha encontrado."

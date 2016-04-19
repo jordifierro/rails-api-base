@@ -16,7 +16,7 @@ module Api
       it 'return english message when no locale' do
         signed_get :fake_not_found, nil
         expect(json_response['error']['message']).to eq I18n.t(
-          'errors.messages.not_found', locale: :en)
+          'errors.messages.not_found', locale: I18n.default_locale)
       end
 
       it 'return english message when en locale' do
@@ -37,7 +37,7 @@ module Api
         request.env['HTTP_ACCEPT_LANGUAGE'] = 'wk'
         signed_get :fake_not_found, nil
         expect(json_response['error']['message']).to eq I18n.t(
-          'errors.messages.not_found', locale: :en)
+          'errors.messages.not_found', locale: I18n.default_locale)
       end
     end
   end

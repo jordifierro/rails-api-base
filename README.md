@@ -170,6 +170,13 @@ to automatically return the appropriate translation.
 More info about that on
 ([this post](http://jordifierro.com/rails-api-modules#internationalizator))
 
+To test that all needed translations are set for an specific language,
+uncomment the following line to the `spec_helper.rb` file,
+place there the target language and run `rspec`:
+```
+I18n.default_locale = :es
+```
+
 #### Secret Api Key
 In order to add some control over the api clients,
 there's an secret api key verification system that can be

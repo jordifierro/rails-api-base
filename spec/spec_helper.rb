@@ -70,4 +70,9 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  I18n.exception_handler = TestExceptionLocalizationHandler.new
+  # Uncomment this line to test all translations
+  # are set for an specific language.
+  # I18n.default_locale = :es
 end
