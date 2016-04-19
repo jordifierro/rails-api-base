@@ -33,6 +33,13 @@ describe UserMailer do
       expect(mail.body.parts.collect(&:content_type)).to match(
         ['text/plain; charset=UTF-8', 'text/html; charset=UTF-8'])
     end
+
+    it 'delivers the mail' do
+      ActionMailer::Base.deliveries = []
+      mail.deliver
+      expect(ActionMailer::Base.deliveries).to_not be_empty
+      expect(ActionMailer::Base.deliveries.last).to eq mail
+    end
   end
 
   describe 'UserMailer.ask_reset_password' do
@@ -64,6 +71,13 @@ describe UserMailer do
       expect(mail.body.parts.length).to eq(2)
       expect(mail.body.parts.collect(&:content_type)).to match(
         ['text/plain; charset=UTF-8', 'text/html; charset=UTF-8'])
+    end
+
+    it 'delivers the mail' do
+      ActionMailer::Base.deliveries = []
+      mail.deliver
+      expect(ActionMailer::Base.deliveries).to_not be_empty
+      expect(ActionMailer::Base.deliveries.last).to eq mail
     end
   end
 end

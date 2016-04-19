@@ -6,7 +6,6 @@ describe Api::V1::UsersController do
   before(:each) do
     ENV['SECRET_API_KEY'] = nil
     request.headers['Accept'] = 'application/vnd.railsapibase.v1'
-    ActionMailer::Base.deliveries = []
   end
 
   it 'routes correctly' do
@@ -35,20 +34,7 @@ describe Api::V1::UsersController do
         expect(json_response['confirmation_at']).to be_nil
       end
 
-      it 'sends confirmation email' do
-        created_user = User.find_by_email(user_attr[:email])
-        mail = ActionMailer::Base.deliveries.last
-        expect(mail.to[0]).to eq created_user.email
-        expect(mail.subject).to eq I18n.t('email_confirmation.subject')
-        expect(mail.body.encoded).to include(I18n.t('email_confirmation.ask'))
-        expect(mail.body.encoded).to include(
-          users_confirm_url(created_user.confirmation_token))
-      end
-
-      it 'creates the user' do
-        expect(User.find(json_response['id'])).to_not be_nil
-      end
-
+      it { expect(User.find(json_response['id'])).to_not be_nil }
       it { expect(response.status).to eq 201 }
     end
 
@@ -111,12 +97,6 @@ describe Api::V1::UsersController do
         expect(response.status).to eq 422
       end
 
-      it 'doesn\'t send email' do
-        user_attr[:email] = nil
-        post :create, params: { user: user_attr }
-        expect(ActionMailer::Base.deliveries.empty?).to be true
-      end
-
       it 'doesn\'t create user' do
         user_attr[:email] = nil
         post :create, params: { user: user_attr }
@@ -164,112 +144,111 @@ describe Api::V1::UsersController do
 
   describe 'POST /users/reset_password/:token #reset_password' do
     context 'when user exists' do
-      before(:each) do
+      it 'returns message and calls ask_reset_password' do
         user_attr[:email] = user.email
         user_attr[:new_password] = '87654321'
         user_attr[:new_password_confirmation] = '87654321'
-        ActionMailer::Base.deliveries = []
-        post :reset_password, params: { user: user_attr }
-      end
 
-      it 'returns message and delivers mail' do
+        expect_any_instance_of(User).to receive(:ask_reset_password).with(
+          user_attr[:new_password], user_attr[:new_password_confirmation])
+
+        post :reset_password, params: { user: user_attr }
+
         expect(json_response['message']).to eq I18n.t('reset_password.sent')
-        expect(ActionMailer::Base.deliveries).to_not be_empty
         expect(response.status).to eq 202
       end
     end
 
     context 'when users doesn\'t exist' do
-      before(:each) do
+      it 'returns message anyway to protect privacy' do
         user_attr[:new_password] = '87654321'
         user_attr[:new_password_confirmation] = '87654321'
-        post :reset_password, params: { user: user_attr }
-      end
 
-      it 'returns message anyway to protect privacy' do
+        expect_any_instance_of(User).to_not receive(:ask_reset_password)
+
+        post :reset_password, params: { user: user_attr }
+
         expect(json_response['message']).to eq I18n.t('reset_password.sent')
-        expect(ActionMailer::Base.deliveries).to be_empty
         expect(response.status).to eq 202
       end
     end
 
     context 'when user exists but passwords don\'t match' do
-      before(:each) do
+      it 'returns error message' do
         user_attr[:email] = user.email
         user_attr[:new_password] = '87654321'
         user_attr[:new_password_confirmation] = '1234'
-        ActionMailer::Base.deliveries = []
-        post :reset_password, params: { user: user_attr }
-      end
 
-      it 'returns error message' do
+        post :reset_password, params: { user: user_attr }
+
         expect(json_response['error']['message']).to include I18n.t(
           'errors.messages.confirmation', attribute: '')
-        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(json_response['error']['status']).to eq 422
         expect(response.status).to eq 422
       end
     end
 
     context 'when user doesn\'t exist and passwords don\'t match' do
-      before(:each) do
+      it 'returns error message' do
         user_attr[:new_password] = '87654321'
         user_attr[:new_password_confirmation] = '1234'
-        post :reset_password, params: { user: user_attr }
-      end
 
-      it 'returns error message' do
+        expect_any_instance_of(User).to_not receive(:ask_reset_password)
+
+        post :reset_password, params: { user: user_attr }
+
         expect(json_response['error']['message']).to include I18n.t(
           'errors.messages.confirmation', attribute: '')
-        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(json_response['error']['status']).to eq 422
         expect(response.status).to eq 422
       end
     end
 
     context 'when user exists but passwords are short' do
-      before(:each) do
+      it 'returns error message' do
         user_attr[:email] = user.email
         user_attr[:new_password] = '1234'
         user_attr[:new_password_confirmation] = '1234'
-        ActionMailer::Base.deliveries = []
-        post :reset_password, params: { user: user_attr }
-      end
 
-      it 'returns error message' do
+        post :reset_password, params: { user: user_attr }
+
         expect(json_response['error']['message']).to include I18n.t(
           'errors.messages.too_short.other', count: 8)
-        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(json_response['error']['status']).to eq 422
         expect(response.status).to eq 422
       end
     end
 
     context 'when user doesn\'t exist and passwords are short' do
-      before(:each) do
+      it 'returns error message' do
         user_attr[:email] = 'fake@email.com'
         user_attr[:new_password] = '1234'
         user_attr[:new_password_confirmation] = '1234'
-        post :reset_password, params: { user: user_attr }
-      end
 
-      it 'returns error message' do
+        expect_any_instance_of(User).to_not receive(:ask_reset_password)
+
+        post :reset_password, params: { user: user_attr }
+
         expect(json_response['error']['message']).to include I18n.t(
           'errors.messages.too_short.other', count: 8)
-        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(json_response['error']['status']).to eq 422
         expect(response.status).to eq 422
       end
     end
 
     context 'when email empty' do
-      before(:each) do
+      it 'returns error message' do
         user_attr[:email] = nil
         user_attr[:new_password] = '87654321'
         user_attr[:new_password_confirmation] = '87654321'
-        post :reset_password, params: { user: user_attr }
-      end
 
-      it 'returns error message' do
+        expect_any_instance_of(User).to_not receive(:ask_reset_password)
+
+        post :reset_password, params: { user: user_attr }
+
         expect(json_response['error']['message']).to include I18n.t(
           'errors.messages.invalid')
-        expect(ActionMailer::Base.deliveries).to be_empty
+        expect(json_response['error']['status']).to eq 422
         expect(response.status).to eq 422
       end
     end

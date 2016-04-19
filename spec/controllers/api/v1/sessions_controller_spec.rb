@@ -37,7 +37,10 @@ describe Api::V1::SessionsController do
       it 'because of email' do
         user.email = 'wrong@email.com'
         post :create, params: { user: user.attributes }
-        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['message']).to eq I18n.t(
+          'authentication.error', authentication_keys: 'email')
+        expect(json_response['error']['status']).to eq 422
+        expect(response.status).to eq 422
       end
 
       it 'because of password' do
@@ -45,11 +48,7 @@ describe Api::V1::SessionsController do
         process :create, method: :post, params: { user: user.attributes }
         expect(json_response['error']['message']).to eq I18n.t(
           'authentication.error', authentication_keys: 'email')
-      end
-
-      it 'and returns 422' do
-        user.email = 'wrong@email.com'
-        process :create, method: :post, params: { user: user.attributes }
+        expect(json_response['error']['status']).to eq 422
         expect(response.status).to eq 422
       end
     end
