@@ -17,6 +17,7 @@ module Api
         signed_get :fake_not_found, nil
         expect(json_response['error']['message']).to eq I18n.t(
           'errors.messages.not_found', locale: I18n.default_locale)
+        expect(json_response['error']['status']).to eq 404
       end
 
       it 'return english message when en locale' do
@@ -24,6 +25,7 @@ module Api
         signed_get :fake_not_found, nil
         expect(json_response['error']['message']).to eq I18n.t(
           'errors.messages.not_found', locale: :en)
+        expect(json_response['error']['status']).to eq 404
       end
 
       it 'return spanish message when es locale' do
@@ -31,6 +33,7 @@ module Api
         signed_get :fake_not_found, nil
         expect(json_response['error']['message']).to eq I18n.t(
           'errors.messages.not_found', locale: :es)
+        expect(json_response['error']['status']).to eq 404
       end
 
       it 'return english message when unknown locale' do
@@ -38,6 +41,7 @@ module Api
         signed_get :fake_not_found, nil
         expect(json_response['error']['message']).to eq I18n.t(
           'errors.messages.not_found', locale: I18n.default_locale)
+        expect(json_response['error']['status']).to eq 404
       end
     end
   end

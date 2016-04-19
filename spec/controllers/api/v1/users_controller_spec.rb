@@ -52,43 +52,43 @@ describe Api::V1::UsersController do
       it 'without email attr' do
         user_attr[:email] = nil
         post :create, params: { user: user_attr }
-        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['message']).to include I18n.t(
+          'errors.messages.invalid')
         expect(json_response['error']['status']).to eq 422
-        expect(json_response['error']['message']).to_not be_nil
       end
 
       it 'with invalid email' do
         user_attr[:email] = 'invalid_email'
         post :create, params: { user: user_attr }
-        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['message']).to include I18n.t(
+          'errors.messages.invalid')
         expect(json_response['error']['status']).to eq 422
-        expect(json_response['error']['message']).to_not be_nil
       end
 
       it 'with repeated email' do
         post :create, params: { user: user_attr }
         post :create, params: { user: user_attr }
-        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['message']).to include I18n.t(
+          'errors.messages.taken')
         expect(json_response['error']['status']).to eq 422
-        expect(json_response['error']['message']).to_not be_nil
       end
 
       it 'with short password' do
         user_attr[:password] = '1234'
         user_attr[:password_confirmation] = '1234'
         post :create, params: { user: user_attr }
-        expect(json_response['error']).to_not be_nil
+        expect(json_response['error']['message']).to include I18n.t(
+          'errors.messages.too_short.other', count: 8)
         expect(json_response['error']['status']).to eq 422
-        expect(json_response['error']['message']).to_not be_nil
       end
 
       it 'with wrong password confirmation' do
         user_attr[:password] = 'one_password'
         user_attr[:password_confirmation] = 'another_password'
         post :create, params: { user: user_attr }
-        expect(json_response['error']).to_not be_nil
         expect(json_response['error']['status']).to eq 422
-        expect(json_response['error']['message']).to_not be_nil
+        expect(json_response['error']['message']).to include I18n.t(
+          'errors.messages.confirmation', attribute: '')
       end
 
       it 'returns 422' do

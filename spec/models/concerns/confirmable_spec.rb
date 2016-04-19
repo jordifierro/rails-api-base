@@ -31,8 +31,8 @@ describe Concerns::Confirmable do
 
       new_user.save
 
-      csa = new_user.confirmation_sent_at.utc.to_s
-      expect(csa).to eq DateTime.current.utc.to_s
+      diff = new_user.confirmation_sent_at.utc - DateTime.current.utc
+      expect(diff).to be < 1.second
     end
   end
 end

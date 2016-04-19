@@ -37,8 +37,8 @@ describe Concerns::Recoverable do
 
       user.ask_reset_password('12345678', '12345678')
 
-      csa = user.reset_password_sent_at.utc.to_s
-      expect(csa).to eq DateTime.current.utc.to_s
+      diff = user.reset_password_sent_at.utc - DateTime.current.utc
+      expect(diff).to be < 1.second
       expect(user.reset_password_digest).to_not be_nil
       expect(user.reset_password_token).to_not be_nil
     end
