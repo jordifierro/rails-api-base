@@ -2,9 +2,11 @@
 
 find . -name "*note*" -type f -delete
 
-sed -i.bak '/notes/d' ./config/routes.rb; rm config/routes.rb.bak
-sed -i.bak '/notes/d' ./app/models/user.rb; rm app/models/user.rb.bak
-sed -i.bak '/notes/d' ./app/controllers/api/v1/users_controller.rb
+sed -i.bak '/note/d' ./config/routes.rb; rm config/routes.rb.bak
+sed -i.bak '/note/d' ./app/models/user.rb; rm app/models/user.rb.bak
+sed -i.bak '/note/d' ./app/controllers/api/v1/users_controller.rb
 rm app/controllers/api/v1/users_controller.rb.bak
 sed -i.bak '/note/d' ./spec/controllers/api/v1/users_controller_spec.rb
 rm spec/controllers/api/v1/users_controller_spec.rb.bak
+sed -i.bak '/note/d' ./spec/models/user_spec.rb;
+rm spec/models/user_spec.rb.bak
