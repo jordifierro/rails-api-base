@@ -13,9 +13,9 @@ class UsersController < ViewController
 
   def confirm_reset
     user = User.find_by_reset_password_token(params[:token])
-    if user
-      user.reset_password_token = nil
+    if user && user.reset_password
       user.password_digest = user.reset_password
+      user.reset_password_token = nil
       user.reset_password = nil
       user.save
       render '/users/reset_confirmed'
