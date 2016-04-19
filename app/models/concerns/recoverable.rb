@@ -13,13 +13,13 @@ module Concerns
     def ask_reset_password(new_password, new_password_confirmation)
       self.new_password = new_password
       self.new_password_confirmation = new_password_confirmation
-      self.reset_password = generate_password_digest(new_password)
+      self.reset_password_digest = generate_password_digest(new_password)
       if valid?
         regenerate_reset_password_token
         self.reset_password_sent_at = DateTime.current
         UserMailer.ask_reset_password(self).deliver if save
       else
-        self.reset_password = nil
+        self.reset_password_digest = nil
       end
     end
 

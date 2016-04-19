@@ -61,14 +61,14 @@ describe UsersController do
 
       it 'sets attribute values' do
         old_pass_digest = user.password_digest
-        new_pass_digest = user.reset_password
+        new_pass_digest = user.reset_password_digest
 
         user.reload
 
         expect(user.password_digest).to_not eq old_pass_digest
         expect(user.password_digest).to eq new_pass_digest
         expect(user.reset_password_token).to be_nil
-        expect(user.reset_password).to be_nil
+        expect(user.reset_password_digest).to be_nil
       end
     end
 
@@ -82,14 +82,14 @@ describe UsersController do
 
       it 'doesn\'t set attributes' do
         old_pass_digest = user.password_digest
-        new_pass_digest = user.reset_password
+        new_pass_digest = user.reset_password_digest
 
         user.reload
 
         expect(user.password_digest).to eq old_pass_digest
         expect(user.password_digest).to_not eq new_pass_digest
         expect(user.reset_password_token).to_not be_nil
-        expect(user.reset_password).to eq new_pass_digest
+        expect(user.reset_password_digest).to eq new_pass_digest
       end
     end
   end

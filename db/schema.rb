@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20160122193254) do
     t.string   "confirmation_token"
     t.datetime "confirmation_sent_at"
     t.datetime "confirmed_at"
-    t.string   "reset_password"
+    t.string   "reset_password_digest"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "created_at",             null: false
