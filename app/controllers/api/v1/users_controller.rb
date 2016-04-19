@@ -22,14 +22,14 @@ module Api
 
       def reset_password
         user = User.find_by_email(user_params[:email])
-        if passwords_match
-          user.ask_reset_password(user_params[:new_password]) if user
-          render json: { message: I18n.t('reset_password.sent') },
-                 status: :accepted
+        if user
+          user.ask_reset_password(user_params[:new_password],
+                                  user_params[:new_password_confirmation])
         else
-          render_error(I18n.t('reset_password.passwords_notmatch'),
-                       :unprocessable_entity)
+          user = User.new(user_params)
+          user.password = '12345678'
         end
+        reset_password_output(user)
       end
 
       private
@@ -48,10 +48,12 @@ module Api
         end
       end
 
-      def passwords_match
-        if !user_params.key?(:new_password_confirmation) ||
-           user_params[:new_password] == user_params[:new_password_confirmation]
-          true
+      def reset_password_output(user)
+        if user.valid?
+          render json: { message: I18n.t('reset_password.sent') },
+                 status: :accepted
+        else
+          render_error(user.errors.full_messages[0], :unprocessable_entity)
         end
       end
     end

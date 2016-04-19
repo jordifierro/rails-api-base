@@ -31,7 +31,6 @@ en:
     success: "Your email address has been successfully confirmed."
     error: "Invalid confirmation token!"
   reset_password:
-    passords_notmatch: "Wrong confirmation password"
     subject: "Reset password confirmation"
     sent: "Check your email to confirm the new password"
     ask: "Please, confirm you have asked a password reset by clicking here:"
