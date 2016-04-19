@@ -19,7 +19,7 @@ Specification summary:
 * Api versioning.
 * Notes app example.
 * Patterns and good practices.
-* Users and token authentication.
+* Users management.
 * Version expiration.
 * Internationalization.
 * Secret api key.
@@ -94,7 +94,7 @@ so it's thinner than a normal app but lacks some features
 The architecture of the api follows rails and http restful good practices
 such as:
 * Usage of http methods/verbs.
-* Good structured endpoints.
+* Structured endpoints.
 * Return appropriate status code.
 
 #### Api Versioning
@@ -110,7 +110,7 @@ Thus, the app has the notes routes, controller, model and rspecs
 to work with that notes.
 
 Its unique purpose is to be a guide of how to add new code,
-so you can delete it when it's useless.
+so it will be deleted by the `bin/remove_notes` shell script.
 
 #### Concerns and ApiController Pattern
 [![Code Climate](https://codeclimate.com/github/jordifierro/rails-api-base/badges/gpa.svg)](https://codeclimate.com/github/jordifierro/rails-api-base)
@@ -130,11 +130,18 @@ to check that this and all the rest of the code follows good practices
 (you have to activate it for your project to use it).
 
 
-#### Users Management and Token Authentication
+#### Users Management
 Almost every api requires users, sessions and authentications,
-so it's really useful to add this feature to our base app.
-The chosen solution uses `has_secure_token`
-with a custom implementation to handle sessions by token.
+so this is the most important feature of this app.
+The chosen solution uses `has_secure_token` and `has_secure_token`
+with a custom implementation to handle sessions and users:
+
+* Create and delete users.
+* Login and logout users.
+* Authenticate users by token.
+* Confirm email with sending an email with token.
+* Reset password when forgotten with email verification.
+
 A token is returned when the users login
 and it has to be set to `headers['Authorization']`
 on later requests to authenticate them.
@@ -192,7 +199,8 @@ If you don't, simply delete the `.travis.yml` file.
 #### Setup scripts
 To avoid the burden of manually modify the code to prepare
 the files to start a new project, some scripts
-have been implemented. You can find them inside `bin/` folder.
+have been implemented. You can find them inside `bin/` folder
+(they are self destroyed after use).
 
 #### Postgres Database
 To avoid deployment problems,
@@ -229,7 +237,6 @@ Remember that `.rubocop.yml` file defines the configuration
 
 - [ ] Standardize json i/o and add a serialization library.
 - [ ] Add elements pagination.
-- [ ] Add sample privacy policy.
 - [x] Upgrade to ruby and rails latest versions.
 
 
@@ -243,8 +250,14 @@ I'm not a rails experienced developer
 so all suggestions and contributions are more than welcome!
 
 * Fork this repo.
-* Create your feature branch (git checkout -b feature-name).
+* Create your feature branch (git checkout -b feature-name)
+from the `develop` branch.
 * Commit your changes (git commit -m 'Implement new function').
+* Run tests and code style checker successfully:
+```
+rspec
+rubocop
+```
 * Push the changes (git push origin feature-name).
 * Create a pull request and I'll merge it with the project.
 
