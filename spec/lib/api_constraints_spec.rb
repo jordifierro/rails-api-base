@@ -16,5 +16,10 @@ describe ApiConstraints do
       request = double(host: 'api.railsapibase.dev')
       expect(api_constraints_v2.matches?(request)).to be true
     end
+
+    it 'returns false when is not default and there are no headers' do
+      request = double(host: 'api.railsapibase.dev')
+      expect(api_constraints_v1.matches?(request)).to be false
+    end
   end
 end
