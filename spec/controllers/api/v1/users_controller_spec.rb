@@ -23,18 +23,23 @@ describe Api::V1::UsersController do
       end
 
       it 'renders resource created' do
-        expect(json_response['id']).to_not be_nil
         expect(json_response['email']).to eq user_attr[:email]
-        expect(json_response['password']).to be_nil
-        expect(json_response['password_confirmation']).to be_nil
-        expect(json_response['password_digest']).to be_nil
         expect(json_response['auth_token']).to_not be_nil
-        expect(json_response['confirmation_token']).to_not be_nil
-        expect(json_response['confirmation_sent_at']).to_not be_nil
-        expect(json_response['confirmation_at']).to be_nil
+        expect(json_response.key?('id')).to be false
+        expect(json_response.key?('password')).to be false
+        expect(json_response.key?('password_confirmation')).to be false
+        expect(json_response.key?('password_digest')).to be false
+        expect(json_response.key?('confirmation_token')).to be false
+        expect(json_response.key?('confirmation_at')).to be false
+        expect(json_response.key?('confirmation_sent_at')).to be false
+        expect(json_response.key?('reset_password_digest')).to be false
+        expect(json_response.key?('reset_password_token')).to be false
+        expect(json_response.key?('reset_password_sent_at')).to be false
+        expect(json_response.key?('created_at')).to be false
+        expect(json_response.key?('updated_at')).to be false
       end
 
-      it { expect(User.find(json_response['id'])).to_not be_nil }
+      it { expect(User.find_by_email(json_response['email'])).to_not be_nil }
       it { expect(response.status).to eq 201 }
     end
 

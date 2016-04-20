@@ -29,6 +29,9 @@ describe Api::V1::NotesController, type: :controller do
         expect(json_response['id']).to eq note.id
         expect(json_response['title']).to eq note.title
         expect(json_response['content']).to eq note.content
+        expect(json_response.key?('user_id')).to be false
+        expect(json_response.key?('created_at')).to be false
+        expect(json_response.key?('updated_at')).to be false
       end
 
       it { expect(response.status).to eq 200 }

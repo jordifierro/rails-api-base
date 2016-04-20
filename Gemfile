@@ -15,6 +15,9 @@ gem 'puma'
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 
+# json formatter
+gem 'active_model_serializers'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

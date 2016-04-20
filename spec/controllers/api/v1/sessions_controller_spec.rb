@@ -19,10 +19,20 @@ describe Api::V1::SessionsController do
       end
 
       it 'renders user' do
-        expect(json_response['id']).to_not be_nil
         expect(json_response['email']).to eq user.email
-        expect(json_response['password']).to be_nil
         expect(json_response['auth_token']).to_not be_nil
+        expect(json_response.key?('id')).to be false
+        expect(json_response.key?('password')).to be false
+        expect(json_response.key?('password_confirmation')).to be false
+        expect(json_response.key?('password_digest')).to be false
+        expect(json_response.key?('confirmation_token')).to be false
+        expect(json_response.key?('confirmation_at')).to be false
+        expect(json_response.key?('confirmation_sent_at')).to be false
+        expect(json_response.key?('reset_password_digest')).to be false
+        expect(json_response.key?('reset_password_token')).to be false
+        expect(json_response.key?('reset_password_sent_at')).to be false
+        expect(json_response.key?('created_at')).to be false
+        expect(json_response.key?('updated_at')).to be false
       end
 
       it 'returns new user token' do
