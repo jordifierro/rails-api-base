@@ -240,7 +240,7 @@ rubocop
 Remember that `.rubocop.yml` file defines the configuration
 (remove it if not used).
 
-#### Output json serialization
+#### Json output serialization
 The responses are formatted using the
 [ActiveModelSerializers](https://github.com/rails-api/active_model_serializers)
 gem.
@@ -266,14 +266,14 @@ I'm not a rails experienced developer
 so all suggestions and contributions are more than welcome!
 
 * Fork this repo.
-* Create your feature branch (git checkout -b feature-name)
-from the `develop` branch.
-* Commit your changes (git commit -m 'Implement new function').
+* Create your feature branch (git checkout -b feature-name).
+* Develop your feature and test it.
 * Run tests and code style checker successfully:
 ```
 rspec
 rubocop
 ```
+* Commit your changes (git commit -m 'Implement new function').
 * Push the changes (git push origin feature-name).
 * Create a pull request and I'll merge it with the project.
 
