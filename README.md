@@ -28,6 +28,7 @@ Specification summary:
 * Postgres database.
 * Versions up-to-date.
 * Ruby Style Guide.
+* Json serialization
 
 Here is its counterpart client mobile app that consumes data from this api ->
 [android-base](https://github.com/jordifierro/android-base)
@@ -239,10 +240,18 @@ rubocop
 Remember that `.rubocop.yml` file defines the configuration
 (remove it if not used).
 
+#### Output json serialization
+The responses are formatted using the
+[ActiveModelSerializers](https://github.com/rails-api/active_model_serializers)
+gem.
+Serializers are responsible to format the output json,
+and are a good way to decouple this layer from models and controllers.
+Furthermore, they are versioned like controllers (e.g.: `Api::V1::Serializer`)
+because they directly interfere with the output of each api version.
+This will help us keeping old version contracts.
 
 #### Todo List
 
-- [ ] Standardize json i/o and add a serialization library.
 - [ ] Add elements pagination.
 - [x] Upgrade to ruby and rails latest versions.
 
