@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-RSpec.describe UserSerializer do
+RSpec.describe Api::V1::UserSerializer do
   describe 'User json serialization' do
     let(:user) { build :user }
-    let(:json) { UserSerializer.new(user).serializable_hash }
+    let(:json) { Api::V1::UserSerializer.new(user).serializable_hash }
 
     it 'renders json correctly' do
       expect(json[:email]).to eq user.email

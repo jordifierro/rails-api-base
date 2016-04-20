@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-RSpec.describe NoteSerializer do
+RSpec.describe Api::V1::NoteSerializer do
   describe 'Note json serialization' do
     let(:note) { build :note }
-    let(:json) { NoteSerializer.new(note).serializable_hash }
+    let(:json) { Api::V1::NoteSerializer.new(note).serializable_hash }
 
     it 'renders json correctly' do
       expect(json[:id]).to eq note.id
