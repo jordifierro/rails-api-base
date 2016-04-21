@@ -9,10 +9,5 @@ module Concerns
       validates :email, uniqueness: true, format: /@/
       validates :password, length: { minimum: 8 }, on: :create
     end
-
-    def to_json(options = {})
-      options[:except] ||= [:password_digest]
-      super(options)
-    end
   end
 end
