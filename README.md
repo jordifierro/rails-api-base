@@ -130,6 +130,9 @@ internationalization and version expiration
 to check that this and all the rest of the code follows good practices
 (you have to activate it for your project to use it).
 
+Codeclimate can also be run locally with its
+[CLI](https://github.com/codeclimate/codeclimate).
+
 
 #### Users Management
 Almost every api requires users, sessions and authentications,
@@ -209,6 +212,9 @@ To avoid the burden of manually modify the code to prepare
 the files to start a new project, some scripts
 have been implemented. You can find them inside `bin/` folder
 (they are self destroyed after use).
+
+They have been analyzed by
+[ShellCheck](https://github.com/koalaman/shellcheck).
 
 #### Postgres Database
 To avoid deployment problems,

@@ -1,10 +1,8 @@
 #!/usr/bin/env sh
 
-APP_NAME="$(tr [A-Z] [a-z] <<< "$1")"
+APP_NAME="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
 USER_NAME="$APP_NAME"_user
 USER_PASS="$APP_NAME"_pass
-echo Postgres role successfully created:
-echo Username: \'"$USER_NAME"\', Password: \'"$USER_PASS"\'.
 psql -c "CREATE USER $USER_NAME WITH PASSWORD '$USER_PASS';"
 psql -c "ALTER USER $USER_NAME CREATEDB;"
 

@@ -10,3 +10,5 @@ sed -i.bak '/note/d' ./spec/controllers/api/v1/users_controller_spec.rb
 rm spec/controllers/api/v1/users_controller_spec.rb.bak
 sed -i.bak '/note/d' ./spec/models/user_spec.rb;
 rm spec/models/user_spec.rb.bak
+
+echo Notes related code files removed

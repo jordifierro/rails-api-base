@@ -1,0 +1,37 @@
+---
+before_script: tail -n +3 .rubocop.yml > .codeclimate-rubocop.yml
+engines:
+  brakeman:
+    enabled: true
+  bundler-audit:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+    exclude_paths:
+    - config/
+    - db/
+    - spec/
+    - vendor/
+  fixme:
+    enabled: true
+  rubocop:
+    enabled: true
+  shellcheck:
+    enabled: true
+ratings:
+  paths:
+  - Gemfile.lock
+  - "**.erb"
+  - "**.haml"
+  - "**.rb"
+  - "**.rhtml"
+  - "**.slim"
+  - "**.inc"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+  - "**.php"
+  - "**.py"
