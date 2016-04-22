@@ -21,20 +21,25 @@ describe Api::V1::VersionsController, type: :controller do
         signed_get :expiration, nil
       end
 
-      it 'returns expiration message' do
-        expect(json_response['message']).to eq I18n.t(
-          'version.expiration',
-          expiration_date: 1.month.from_now.strftime('%x'))
+      it 'returns expiration_date' do
+        exp_date = json_response['expiration_date']
+        expect(exp_date).to eq 1.month.from_now.strftime('%x')
       end
 
       it { expect(response.status).to eq 200 }
     end
 
-    context 'when expiration date doesn\'t exist' do
-      it 'returns 204 - no_content' do
+    context 'when expiration date doesn\'t exists' do
+      before(:each) do
+        ENV['V1_EXPIRATION_DATE'] = nil
         signed_get :expiration, nil
-        expect(response.status).to eq 204
       end
+
+      it 'returns void expiration_date' do
+        expect(json_response['expiration_date']).to eq ''
+      end
+
+      it { expect(response.status).to eq 200 }
     end
   end
 end

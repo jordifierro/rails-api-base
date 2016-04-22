@@ -3,11 +3,10 @@ module Api
     class VersionsController < ApiController
       def expiration
         if expiration_date
-          render json: { message: I18n.t(
-            'version.expiration',
-            expiration_date: Date.parse(expiration_date).strftime('%x')) }
+          render json: { expiration_date:
+            Date.parse(expiration_date).strftime('%x') }
         else
-          head :no_content
+          render json: { expiration_date: '' }
         end
       end
     end
