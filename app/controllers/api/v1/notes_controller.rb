@@ -36,7 +36,7 @@ module Api
       private
 
       def note_params
-        params.require(:note).permit(:title, :content, :user_id)
+        params.require(:note).permit(:title, :content)
       end
     end
   end
