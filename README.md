@@ -137,7 +137,7 @@ Codeclimate can also be run locally with its
 #### Users Management
 Almost every api requires users, sessions and authentications,
 so this is the most important feature of this app.
-The chosen solution uses `has_secure_token` and `has_secure_token`
+The chosen solution uses `has_secure_password` and `has_secure_token`
 with a custom implementation to handle sessions and users:
 
 * Create and delete users.
