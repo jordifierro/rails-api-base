@@ -23,7 +23,6 @@ en:
   authentication:
     error: "Invalid %{authentication_keys} or password."
   version:
-    expiration: "Your current version expires on %{expiration_date}, please update to the latest one."
     expired: "Your current version has expired, please update to the latest one."
   email_confirmation:
     subject: "Email confirmation"

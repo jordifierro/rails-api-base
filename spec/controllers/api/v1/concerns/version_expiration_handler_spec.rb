@@ -12,7 +12,7 @@ module Api
 
       before { routes.draw { get 'fake_method' => 'api/v1/api#fake_method' } }
 
-      after(:each) { ENV['V1_EXPIRATION_DATE'] = nil }
+      after(:each) { ENV['LAST_EXPIRED_VERSION'] = nil }
 
       context 'when no expiration date' do
         before { signed_get :fake_method, nil }
@@ -20,18 +20,18 @@ module Api
         it { expect(response.status).to eq 200 }
       end
 
-      context 'when expiration is later' do
+      context 'when expired is less' do
         before do
-          ENV['V1_EXPIRATION_DATE'] = 1.month.from_now.to_s
+          ENV['LAST_EXPIRED_VERSION'] = '0'
           signed_get :fake_method, nil
         end
 
         it { expect(response.status).to eq 200 }
       end
 
-      context 'when version has expired' do
+      context 'when version is equal or greater' do
         before do
-          ENV['V1_EXPIRATION_DATE'] = 1.month.ago.to_s
+          ENV['LAST_EXPIRED_VERSION'] = '1'
           signed_get :fake_method, nil
         end
 

@@ -159,7 +159,11 @@ It will return error if the version has expired
 and there's also an endpoint to check the expiration date from the client
 (e.g.: to warn the user to update the app).
 If you want to set expiration date to a concrete version,
-simply set a date formatted to string to `ENV['V1_EXPIRATION_DATE']`.
+simply set a integer formatted to string to `ENV['LAST_EXPIRED_VERSION']`.
+All versions equal or below the specified will send upgrade error message
+when asked. The system to set a warning to some versions is the same,
+using `ENV['LAST_WARNED_VERSION']` to set the higher version that you want
+to warn.
 More info about that on
 ([this post](http://jordifierro.com/rails-api-modules#version-expiration-handler))
 

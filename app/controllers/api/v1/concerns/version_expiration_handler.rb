@@ -5,17 +5,24 @@ module Api
     module Concerns
       module VersionExpirationHandler
         extend ActiveSupport::Concern
+        OK = 'OK'.freeze
+        WARNED = 'WARNED'.freeze
+        EXPIRED = 'EXPIRED'.freeze
 
         included do
           before_action :check_expiration!
         end
 
         def api_version
-          self.class.superclass.name.to_s.split('::').second
+          self.class.superclass.name.to_s.split('::').second.sub('V', '').to_i
         end
 
-        def expiration_date
-          @expiration_date ||= ENV[api_version + '_EXPIRATION_DATE']
+        def expiration_state
+          @expired ||= ENV['LAST_EXPIRED_VERSION']
+          return EXPIRED if @expired && api_version <= @expired.to_i
+          @warned ||= ENV['LAST_WARNED_VERSION']
+          return WARNED if @warned && api_version <= @warned.to_i
+          OK
         end
 
         def check_expiration!
@@ -24,7 +31,7 @@ module Api
         end
 
         def supported_version?
-          !expiration_date || Time.zone.today < Date.parse(expiration_date)
+          expiration_state && expiration_state != EXPIRED
         end
       end
     end

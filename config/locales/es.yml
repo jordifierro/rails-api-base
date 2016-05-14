@@ -23,7 +23,6 @@ es:
   authentication:
     error: "%{authentication_keys} o contraseña incorrectos."
   version:
-    expiration: "Tu versión actual expira el %{expiration_date}, por favor actualiza a una versión más nueva."
     expired: "Tu versión actual ha expirado, por favor actualiza a una versión más nueva."
   email_confirmation:
     subject: "Confirmar correo"

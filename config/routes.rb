@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   scope module: :api, defaults: { format: :json }  do
     scope module: :v1, constraints: ApiConstraints.new(version: 1,
                                                        default: true) do
-      get    'versions/expiration'  => 'versions#expiration'
+      get    'versions/state'       => 'versions#state'
       post   'users/login'          => 'sessions#create'
       delete 'users/logout'         => 'sessions#destroy'
       post   'users/reset_password' => 'users#reset_password'
