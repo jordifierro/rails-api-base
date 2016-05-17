@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+rm bin/reset_git
+
 rm -rf .git/
 
 git init
@@ -7,5 +9,3 @@ git add .
 git commit -m "Initialize project from rails-api-base"
 git remote add origin "$1"
 git push -u origin master
-
-rm bin/reset_git
