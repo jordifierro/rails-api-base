@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 ruby '2.3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.0.rc1'
-gem 'rails-i18n', '>= 5.0.0.beta3'
+gem 'rails', '~> 5.0.0'
+gem 'rails-i18n', '~> 5.0.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -16,7 +16,7 @@ gem 'puma'
 gem 'bcrypt'
 
 # json formatter
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.9.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -35,7 +35,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails', '~>3.5.0.beta3'
+  gem 'rspec-rails', '~>3.5.0'
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'codeclimate-test-reporter', require: nil
