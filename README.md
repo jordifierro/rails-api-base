@@ -81,6 +81,13 @@ and then execute this to reset the repo and push it:
 
 That's it, you can now start developing your own app!
 
+(While developing on localhost, start [mailcatcher](https://github.com/sj26/mailcatcher)
+in order to receive user confirmation and recover password emails)
+```
+gem install mailcatcher
+mailcatcher
+```
+
 ## Documentation
 
 The application itself is almost empty,
