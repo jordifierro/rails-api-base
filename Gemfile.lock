@@ -68,7 +68,7 @@ GEM
     jsonapi-renderer (0.1.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    mail (2.6.5)
+    mail (2.6.6.rc1)
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
     mime-types (3.1)
@@ -164,6 +164,7 @@ DEPENDENCIES
   codeclimate-test-reporter
   factory_girl_rails
   ffaker
+  mail (= 2.6.6.rc1)
   pg
   puma
   rails

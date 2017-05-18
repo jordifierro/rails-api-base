@@ -18,6 +18,9 @@ gem 'bcrypt'
 # json formatter
 gem 'active_model_serializers'
 
+# Force mail version to prevent security issue
+gem 'mail', '2.6.6.rc1'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
