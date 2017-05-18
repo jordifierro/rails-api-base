@@ -14,7 +14,7 @@ module Api
       end
 
       context 'when record not found triggered' do
-        before { signed_get :fake_not_found, nil }
+        before { signed_get :fake_not_found, params: {} }
 
         it 'renders error' do
           expect(json_response['error']['message']).to eq I18n.t(

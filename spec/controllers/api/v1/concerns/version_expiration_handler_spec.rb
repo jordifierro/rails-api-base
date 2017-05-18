@@ -15,7 +15,7 @@ module Api
       after(:each) { ENV['LAST_EXPIRED_VERSION'] = nil }
 
       context 'when no expiration date' do
-        before { signed_get :fake_method, nil }
+        before { signed_get :fake_method, params: {} }
 
         it { expect(response.status).to eq 200 }
       end
@@ -23,7 +23,7 @@ module Api
       context 'when expired is less' do
         before do
           ENV['LAST_EXPIRED_VERSION'] = '0'
-          signed_get :fake_method, nil
+          signed_get :fake_method, params: {}
         end
 
         it { expect(response.status).to eq 200 }
@@ -32,7 +32,7 @@ module Api
       context 'when version is equal or greater' do
         before do
           ENV['LAST_EXPIRED_VERSION'] = '1'
-          signed_get :fake_method, nil
+          signed_get :fake_method, params: {}
         end
 
         it 'returns expired message' do

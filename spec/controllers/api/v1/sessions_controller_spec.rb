@@ -66,7 +66,7 @@ describe Api::V1::SessionsController do
 
   describe 'DELETE /users/logout #destroy' do
     context 'when logout correctly' do
-      before(:each) { signed_delete :destroy, nil }
+      before(:each) { signed_delete :destroy, params: {} }
 
       it 'cannot be found anymore' do
         expect do

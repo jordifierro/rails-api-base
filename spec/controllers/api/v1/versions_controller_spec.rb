@@ -22,7 +22,7 @@ describe Api::V1::VersionsController, type: :controller do
       before(:each) do
         ENV['LAST_EXPIRED_VERSION'] = '0'
         ENV['LAST_WARNED_VERSION'] = '0'
-        signed_get :state, nil
+        signed_get :state, params: {}
       end
 
       it 'returns expiration_date' do
@@ -36,7 +36,7 @@ describe Api::V1::VersionsController, type: :controller do
       before(:each) do
         ENV['LAST_EXPIRED_VERSION'] = '0'
         ENV['LAST_WARNED_VERSION'] = '1'
-        signed_get :state, nil
+        signed_get :state, params: {}
       end
 
       it 'returns expiration_date' do
@@ -50,7 +50,7 @@ describe Api::V1::VersionsController, type: :controller do
       before(:each) do
         ENV['LAST_EXPIRED_VERSION'] = '2'
         ENV['LAST_WARNED_VERSION'] = '3'
-        signed_get :state, nil
+        signed_get :state, params: {}
       end
 
       it 'returns expiration_date' do

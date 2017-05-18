@@ -16,14 +16,14 @@ module Api
       end
 
       context 'when correctly authenticated' do
-        before { signed_get :fake_current_user, nil }
+        before { signed_get :fake_current_user, params: {} }
 
         it { expect(json_response['email']).to_not be_nil }
         it { expect(response.status).to eq 200 }
       end
 
       context 'when not authenticated' do
-        before { get :fake_current_user, nil }
+        before { get :fake_current_user, params: {} }
 
         it { expect(response.status).to eq 401 }
       end

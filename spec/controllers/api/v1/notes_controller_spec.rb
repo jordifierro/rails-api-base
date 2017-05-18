@@ -53,7 +53,7 @@ describe Api::V1::NotesController, type: :controller do
   describe 'GET /notes #index' do
     it 'returns some notes' do
       create_list(:note, 3, user: user)
-      signed_get :index, nil
+      signed_get :index, params: {}
       expect(json_response.count).to eq 3
     end
 
