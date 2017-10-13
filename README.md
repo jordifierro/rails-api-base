@@ -238,7 +238,7 @@ uses it as its default db system has been considered too.
 #### Latest Ruby and Gems Versions
 [![Dependency Status](https://gemnasium.com/jordifierro/rails-api-base.svg)](https://gemnasium.com/jordifierro/rails-api-base)
 
-The project uses Rails 5.0.0.beta3 (API module) and Ruby 2.3.0
+The project uses Rails 5.1.4 (API module) and Ruby 2.3.0
 and intends to be kept up to date using
 [Gemnasium](https://gemnasium.com) service.
 You must activate this service for your repo if you want to use it.
