@@ -8,7 +8,7 @@ class ApiConstraints
     @default ||
       (req.respond_to?('headers') &&
        req.headers.key?('Accept') &&
-       req.headers['Accept'].include?(
+       req.headers['Accept'].eql?(
          "application/vnd.railsapibase.v#{@version}"))
   end
 end
